@@ -3,6 +3,20 @@
 
 var LevelSelect = function () {
     Arcadia.Scene.apply(this, arguments);
+
+    // Create grid of puzzle buttons - clicking one will take you to
+    // the puzzle immediately (but temporarily will need a play/edit distinction
+    // so that levels can be created)
+
+    // Puzzles hidden behind IAP wall will be red, normal will be purple,
+    // completed will be green
+
+    // Need to allow circular buttons in Arcadia.Button
+
+    // Probably need pagination, as well, since will have more puzzles than
+    // can fit on one screen
+
+    // Can link to a more info/feedback view from here as well
     
     var spacing = 52, // for 40x40 objects
         completed,
@@ -16,6 +30,7 @@ var LevelSelect = function () {
         gridHeight = columns * spacing,
         startX = centerX - gridWidth / 2 + spacing / 2,
         startY = centerY - gridHeight / 2 + spacing / 2,
+        page,
         y,
         x,
         shape,
@@ -38,25 +53,40 @@ var LevelSelect = function () {
     this.deactivate(this.cursor);
 
     // Draw grid of level buttons
-    // TODO: support circular buttons?
-    for (y = startY; y < startY + gridHeight; y += spacing) {
-        for (x = startX; x < startX + gridWidth; x += spacing) {
-            shape = new Vertex({
-                number: (counter + 1),
-                position: { x: x, y: y }
-            });
-            this.add(shape);
-            this.levels.push(shape);
-            if (completed[counter]) {
-                shape.color = 'lime';
+    this.pages = [
+        [], [], [], []
+    ];
+    this.currentPage = parseInt(localStorage.getItem('currentPage'), 10) || 0;
+
+    for (page = 0; page < this.pages.length; page += 1) {
+        for (y = startY; y < startY + gridHeight; y += spacing) {
+            for (x = startX; x < startX + gridWidth; x += spacing) {
+                if (page < this.currentPage) {
+                    offset = -Arcadia.WIDTH;
+                } else if (page > this.currentPage) {
+                    offset = Arcadia.WIDTH;
+                } else {
+                    offset = 0;
+                }
+                shape = new Vertex({
+                    number: (counter + 1),
+                    position: { x: x + offset, y: y }
+                });
+                this.add(shape);
+                this.levels.push(shape);
+                this.pages[page].push(shape);
+                if (completed[counter]) {
+                    shape.color = 'lime';
+                }
+                if (!levels[counter]) {
+                    shape.color = 'red';
+                }
+                counter += 1;
             }
-            if (!levels[counter]) {
-                shape.color = 'red';
-            }
-            counter += 1;
         }
     }
 
+    // TODO: support circular buttons?
     this.previousButton = new Arcadia.Button({
         position: {
             x: startX,
@@ -64,11 +94,11 @@ var LevelSelect = function () {
         },
         color: null,
         border: '2px #fff',
-        text: '<=',
+        text: '<-',
         font: '20px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            // TODO: show previous page of levels
+            _this.previousPage();
         }
     });
     this.add(this.previousButton);
@@ -80,17 +110,17 @@ var LevelSelect = function () {
         },
         color: null,
         border: '2px #fff',
-        text: '=>',
+        text: '->',
         font: '20px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            // TODO: show previous page of levels
+            _this.nextPage();
         }
     });
     this.add(this.nextButton);
 
     this.pageLabel = new Arcadia.Label({
-        text: '1 / 4',
+        text: (this.currentPage + 1) + ' / ' + this.pages.length,
         font: '20px monospace',
         position: {
             x: centerX,
@@ -98,19 +128,6 @@ var LevelSelect = function () {
         }
     });
     this.add(this.pageLabel);
-    // Create grid of puzzle buttons - clicking one will take you to
-    // the puzzle immediately (but temporarily will need a play/edit distinction
-    // so that levels can be created)
-
-    // Puzzles hidden behind IAP wall will be red, normal will be purple,
-    // completed will be green
-
-    // Need to allow circular buttons in Arcadia.Button
-
-    // Probably need pagination, as well, since will have more puzzles than
-    // can fit on one screen
-
-    // Can link to a more info/feedback view from here as well
 
     this.playButton = new Arcadia.Button({
         position: {
@@ -182,5 +199,49 @@ LevelSelect.prototype.onPointEnd = function () {
             this.selected = i;
             return;
         }
+    }
+};
+
+// TODO: fix Arcadia tween to allow for compound values
+LevelSelect.prototype.nextPage = function () {
+    var offset = -Arcadia.WIDTH;
+
+    if (this.currentPage < this.pages.length - 1) {
+        // Move (old) current page to the left
+        this.pages[this.currentPage].forEach(function (shape) {
+            // shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 1000);
+            shape.position = { x: shape.position.x + offset, y: shape.position.y };
+        });
+        // increment currentPage
+        this.currentPage += 1;
+        // Move (new) current page to the left
+        this.pages[this.currentPage].forEach(function (shape) {
+            // shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 1000);
+            shape.position = { x: shape.position.x + offset, y: shape.position.y };
+        });
+
+        this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.pages.length;
+        localStorage.setItem('currentPage', this.currentPage);
+    }
+};
+
+LevelSelect.prototype.previousPage = function () {
+    var offset = Arcadia.WIDTH;
+    if (this.currentPage > 0) {
+        // Move (old) current page to the right
+        this.pages[this.currentPage].forEach(function (shape) {
+            // shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 1000);
+            shape.position = { x: shape.position.x + offset, y: shape.position.y };
+        });
+        // decrement currentPage
+        this.currentPage -= 1;
+        // Move (new) current page to the right
+        this.pages[this.currentPage].forEach(function (shape) {
+            // shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 1000);
+            shape.position = { x: shape.position.x + offset, y: shape.position.y };
+        });
+
+        this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.pages.length;
+        localStorage.setItem('currentPage', this.currentPage);
     }
 };
