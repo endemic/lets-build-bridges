@@ -1,0 +1,66 @@
+<html>
+<head>
+	<title>Let's Build Bridges</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+	<!-- Set viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+	<!-- Launch in "fullscreen" mode if from home screen -->
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<!-- Does Apple support the above? -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<!-- controls the appearance of the status bar in full-screen mode -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!-- iOS icons -->
+	<link href="assets/icons/114.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+
+	<style type="text/css">
+	body { margin: 0; padding: 0; background: #000; }
+	#arcadia, #arcadia canvas {
+		cursor: pointer;
+		-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	}
+	</style>
+
+	<!-- Engine -->
+	<script src="../../dist/arcadia.js"></script>
+
+	<!-- Polyfills, etc. -->
+	<script src="polyfills.js"></script>
+	<script src="storage-extensions.js"></script>
+
+	<!-- Scenes -->
+	<script src="title.js"></script>
+	<script src="game.js"></script>
+	<script src="level-select.js"></script>
+	<script src="editor.js"></script>
+
+	<!-- Objects -->
+	<script src="vertex.js"></script>
+	<script src="edge.js"></script>
+
+	<script type="text/javascript">
+		window.onload = function () {
+			var game = new Arcadia.Game({
+				width: 375,
+				height: 667,
+				scene: LevelSelect,
+				scaleToFit: true,
+				sounds: [
+					{ url: 'assets/sounds/button.mp3', id: 'button' },
+					{ url: 'assets/sounds/fill.mp3', id: 'build' },
+					{ url: 'assets/sounds/mark.mp3', id: 'erase' },
+					{ url: 'assets/sounds/invalid.mp3', id: 'invalid' }
+				]
+			});
+		};
+	</script>
+</head>
+<body>
+
+</body>
+</html>
