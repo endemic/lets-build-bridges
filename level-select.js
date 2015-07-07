@@ -209,15 +209,13 @@ LevelSelect.prototype.nextPage = function () {
     if (this.currentPage < this.pages.length - 1) {
         // Move (old) current page to the left
         this.pages[this.currentPage].forEach(function (shape) {
-            // shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 1000);
-            shape.position = { x: shape.position.x + offset, y: shape.position.y };
+            shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 500, 'expoInOut');
         });
         // increment currentPage
         this.currentPage += 1;
         // Move (new) current page to the left
         this.pages[this.currentPage].forEach(function (shape) {
-            // shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 1000);
-            shape.position = { x: shape.position.x + offset, y: shape.position.y };
+            shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 500, 'expoInOut');
         });
 
         this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.pages.length;
@@ -230,15 +228,13 @@ LevelSelect.prototype.previousPage = function () {
     if (this.currentPage > 0) {
         // Move (old) current page to the right
         this.pages[this.currentPage].forEach(function (shape) {
-            // shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 1000);
-            shape.position = { x: shape.position.x + offset, y: shape.position.y };
+            shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 500, 'expoInOut');
         });
         // decrement currentPage
         this.currentPage -= 1;
         // Move (new) current page to the right
         this.pages[this.currentPage].forEach(function (shape) {
-            // shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 1000);
-            shape.position = { x: shape.position.x + offset, y: shape.position.y };
+            shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 500, 'expoInOut');
         });
 
         this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.pages.length;
