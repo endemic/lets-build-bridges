@@ -23,7 +23,7 @@ var Game = function (options) {
     this.vertices = [];
     this.edges = [];
 
-    // TODO: Load the puzzle here
+    // Load the puzzle here
     this.level = options.level || 0;
     this.load();
 
@@ -38,12 +38,13 @@ var Game = function (options) {
 Game.prototype = new Arcadia.Scene();
 
 Game.prototype.load = function () {
-    var levels = localStorage.getObject('levels'),
+    var levels = localStorage.getObject('levels') || [],
         vertexData,
         _this = this;
 
-    if (levels[this.level] === undefined) {
-        throw new Error('No previously-stored level data for #' + (this.level + 1));
+    if (levels[this.level] === undefined || levels[this.level] === null) {
+        Arcadia.changeScene(LevelSelect, { selected: _this.level });
+        alert('No level data for #' + (this.level + 1));
     }
 
     data = levels[this.level];
@@ -317,7 +318,7 @@ Game.prototype.win = function () {
         font: '20px monospace',
         alpha: 0,
         action: function () {
-            Arcadia.changeScene(LevelSelect);
+            Arcadia.changeScene(LevelSelect, { selected: _this.level });
         }
     });
     this.add(button);

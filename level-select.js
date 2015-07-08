@@ -1,8 +1,12 @@
 /*jslint sloppy: true, plusplus: true */
 /*globals Arcadia */
 
-var LevelSelect = function () {
+var LevelSelect = function (options) {
     Arcadia.Scene.apply(this, arguments);
+
+    if (options === undefined) {
+        options = {};
+    }
 
     // Create grid of puzzle buttons - clicking one will take you to
     // the puzzle immediately (but temporarily will need a play/edit distinction
@@ -162,6 +166,11 @@ var LevelSelect = function () {
         }
     });
     this.add(this.editButton);
+
+    if (options.selected !== undefined) {
+        this.selected = options.selected;
+        this.levels[this.selected].highlight();
+    }
 };
 
 LevelSelect.prototype = new Arcadia.Scene();

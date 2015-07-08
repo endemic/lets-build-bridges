@@ -7,6 +7,8 @@ var Editor = function (options) {
         options = {};
     }
 
+    var _this = this;
+
     this.color = 'purple';
 
     // Object that tracks player's cursor/finger; used for collision detection 
@@ -56,7 +58,7 @@ var Editor = function (options) {
         font: '20px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            Arcadia.changeScene(LevelSelect);
+            Arcadia.changeScene(LevelSelect, { selected: _this.level });
         }
     });
     this.backButton.position = {
@@ -119,7 +121,7 @@ Editor.prototype.load = function () {
 
     levels = localStorage.getObject('levels') || [];
 
-    if (levels[this.level] === undefined) {
+    if (levels[this.level] === undefined || levels[this.level] === null) {
         console.warn('No previously-stored level data.');
         return;
     }

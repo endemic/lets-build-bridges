@@ -12,7 +12,6 @@
 [x] Determine how to find out if a puzzle is cleared or not
 	* Store how many bridges lead out from an island
 [x] Don't allow drawing lines from an island if it already has the max # of bridges
-[ ] Check for collision of a vertex in between start/end vertices
 [x] Some kind of level editor? How would this work?
 	* Re-use game mode, with "editor" flag? Or easier to copy/paste and change
 	  relevant bits?
@@ -34,13 +33,15 @@
 [x] Draw edges in editor
 [x] Allow going back to level select after win
 [ ] Combine editor/game?
-[ ] Scroll paginated level icons
+[x] Scroll paginated level icons
 [x] Upload to web
 [x] Create basic icon
 [ ] Alpha isn't passed down to children
 [x] `onPointEnd` seems to be getting called twice on iOS
-[ ] Extract to its own repo
+[x] Extract to its own repo
 [ ] Change red/green colors to be more readable w/ white text
+[ ] Check for collision of a vertex in between start/end vertices
+[ ] Make vertices larger/easier for touch
 
 # Rules
 
