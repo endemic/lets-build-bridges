@@ -192,7 +192,7 @@ Game.prototype.onPointEnd = function (points) {
                             height: Vertex.SIZE / 2
                         };
                     }
-                    
+
                     // Check collision against other edges
                     j = this.edges.length;
                     while (j--) {
@@ -309,9 +309,12 @@ Game.prototype.checkCompleteness = function () {
 // Show a "u won, next level?" sort of message
 Game.prototype.win = function () {
 
-    var button,
+    var nextButton,
+        quitButton,
         completed,
+        levels,
         i = this.edges.length,
+        delay = 2000,
         _this = this;
 
     // Hide edges
@@ -345,30 +348,56 @@ Game.prototype.win = function () {
 
     // Shrink vertices, then show an "explosion"
     this.vertices.forEach(function (vertex) {
-        vertex.tween('scale', 0, 2000, 'elasticInOut', function () {
+        vertex.tween('scale', 0, delay, 'elasticInOut', function () {
             _this.particles.activate().startAt(vertex.position.x, vertex.position.y);
         });
     });
 
-    completed = localStorage.getObject('completed') || [];
+    completed = localStorage.getObject('completed') || Array(LEVELS.length);
     completed[this.level] = true;
     localStorage.setObject('completed', completed);
 
-    button = new Arcadia.Button({
+    nextButton = new Arcadia.Button({
         position: {
             x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT / 2
+            y: Arcadia.HEIGHT / 2 - 25
         },
         color: null,
         border: '2px #fff',
         padding: 15,
-        text: 'continue',
-        font: '20px monospace',
-        alpha: 0,
+        text: 'next',
+        font: '26px monospace',
         action: function () {
+            Arcadia.playSfx('button');
+
+            var incompleteLevel = completed.indexOf(null);
+
+            if (incompleteLevel !== -1) {
+                Arcadia.changeScene(Game, { level: incompleteLevel });
+            } else {
+                Arcadia.changeScene(Credits);
+            }
+        }
+    });
+
+    quitButton = new Arcadia.Button({
+        position: {
+            x: Arcadia.WIDTH / 2,
+            y: Arcadia.HEIGHT / 2 + 25
+        },
+        color: null,
+        border: '2px #fff',
+        padding: 15,
+        text: 'quit',
+        font: '26px monospace',
+        action: function () {
+            Arcadia.playSfx('button');
             Arcadia.changeScene(LevelSelect, { selected: _this.level });
         }
     });
-    this.add(button);
-    button.tween('alpha', 1, 2000);
+
+    setTimeout(function () {
+        _this.add(nextButton);
+        _this.add(quitButton);
+    }, delay);
 };
