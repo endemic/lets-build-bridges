@@ -5,7 +5,7 @@ var Vertex = function (args) {
         window.VERTEX_ID = 0;
     }
 
-    this.size = { width: 40, height: 40 };
+    this.size = { width: Vertex.SIZE, height: Vertex.SIZE };
     this.vertices = 0;
     this.color = 'purple';
     this.border = '2px #fff';
@@ -24,7 +24,7 @@ var Vertex = function (args) {
     }
 
     this.label = new Arcadia.Label({
-        font: '16px monospace',
+        font: '24px monospace',
         text: this.number,
         fixed: false
     });
@@ -79,12 +79,15 @@ Vertex.prototype.updateColor = function () {
     var count = this.edgeCount();
 
     if (count === this.number) {
-        this.color = 'lime';
+        this.color = Vertex.CORRECT_COLOR;
     } else if (count > this.number) {
-        this.color = 'red';
+        this.color = Vertex.INCORRECT_COLOR;
     } else {
-        this.color = 'purple';
+        this.color = Vertex.DEFAULT_COLOR;
     }
 };
 
-Vertex.SIZE = 40;
+Vertex.SIZE = 44;
+Vertex.CORRECT_COLOR = 'limegreen';
+Vertex.INCORRECT_COLOR = 'crimson';
+Vertex.DEFAULT_COLOR = 'purple';
