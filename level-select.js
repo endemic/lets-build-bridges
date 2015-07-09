@@ -22,7 +22,7 @@ var LevelSelect = function (options) {
 
     // Can link to a more info/feedback view from here as well
     
-    var spacing = 52, // for 40x40 objects
+    var spacing = Vertex.SIZE + 10,
         completed,
         levels,
         counter = 0,
@@ -44,7 +44,7 @@ var LevelSelect = function (options) {
     this.color = 'purple';
     this.levels = [];
     this.selected = null;
-    completed = localStorage.getObject('completed') || [];
+    completed = localStorage.getObject('completed') || Array(LEVELS.length);
     levels = localStorage.getObject('levels') || LEVELS;
 
     // Object that tracks player's cursor/finger; used for collision detection 
@@ -80,10 +80,10 @@ var LevelSelect = function (options) {
                 this.levels.push(shape);
                 this.pages[page].push(shape);
                 if (completed[counter]) {
-                    shape.color = 'limegreen';
+                    shape.color = Vertex.CORRECT_COLOR;
                 }
                 if (!levels[counter]) {
-                    shape.color = 'red';
+                    shape.color = Vertex.INCORRECT_COLOR;
                 }
                 counter += 1;
             }
@@ -99,7 +99,7 @@ var LevelSelect = function (options) {
         color: null,
         border: '2px #fff',
         text: '<-',
-        font: '20px monospace',
+        font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
             _this.previousPage();
@@ -115,7 +115,7 @@ var LevelSelect = function (options) {
         color: null,
         border: '2px #fff',
         text: '->',
-        font: '20px monospace',
+        font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
             _this.nextPage();
@@ -125,7 +125,7 @@ var LevelSelect = function (options) {
 
     this.pageLabel = new Arcadia.Label({
         text: (this.currentPage + 1) + ' / ' + this.pages.length,
-        font: '20px monospace',
+        font: '26px monospace',
         position: {
             x: centerX,
             y: startY - spacing
@@ -142,7 +142,7 @@ var LevelSelect = function (options) {
         border: '2px #fff',
         padding: 15,
         text: 'play',
-        font: '20px monospace',
+        font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
             Arcadia.changeScene(Game, { level: _this.selected });
@@ -159,7 +159,7 @@ var LevelSelect = function (options) {
         border: '2px #fff',
         padding: 15,
         text: 'edit',
-        font: '20px monospace',
+        font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
             Arcadia.changeScene(Editor, { level: _this.selected });
