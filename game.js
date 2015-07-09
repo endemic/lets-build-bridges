@@ -7,6 +7,9 @@ var Game = function (options) {
         options = {};
     }
 
+    var buttonPadding = 5,
+        _this = this;
+
     // Background color
     this.color = 'purple';
 
@@ -33,6 +36,42 @@ var Game = function (options) {
     });
     this.add(this.activeEdge);
     this.deactivate(this.activeEdge);
+
+    // Create "quit" and "reset" buttons at top of screen
+    this.resetButton = new Arcadia.Button({
+        color: null,
+        border: '2px #fff',
+        padding: buttonPadding,
+        text: 'reset',
+        font: '26px monospace',
+        action: function () {
+            Arcadia.playSfx('button');
+            // TODO: clear out all edges
+        }
+    });
+    this.resetButton.position = {
+        x: Arcadia.WIDTH - this.resetButton.size.width / 2 - buttonPadding,
+        y: this.resetButton.size.height / 2 + buttonPadding
+    };
+    this.add(this.resetButton);
+
+    // Go back to level select
+    this.backButton = new Arcadia.Button({
+        color: null,
+        border: '2px #fff',
+        padding: buttonPadding,
+        text: 'quit',
+        font: '26px monospace',
+        action: function () {
+            Arcadia.playSfx('button');
+            Arcadia.changeScene(LevelSelect, { selected: _this.level });
+        }
+    });
+    this.backButton.position = {
+        x: this.backButton.size.width / 2 + buttonPadding,
+        y: this.backButton.size.height / 2 + buttonPadding
+    };
+    this.add(this.backButton);
 };
 
 Game.prototype = new Arcadia.Scene();
