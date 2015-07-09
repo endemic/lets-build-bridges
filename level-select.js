@@ -45,7 +45,7 @@ var LevelSelect = function (options) {
     this.levels = [];
     this.selected = null;
     completed = localStorage.getObject('completed') || [];
-    levels = localStorage.getObject('levels') || [];
+    levels = localStorage.getObject('levels') || LEVELS;
 
     // Object that tracks player's cursor/finger; used for collision detection 
     this.cursor = new Arcadia.Shape({
@@ -80,7 +80,7 @@ var LevelSelect = function (options) {
                 this.levels.push(shape);
                 this.pages[page].push(shape);
                 if (completed[counter]) {
-                    shape.color = 'lime';
+                    shape.color = 'limegreen';
                 }
                 if (!levels[counter]) {
                     shape.color = 'red';

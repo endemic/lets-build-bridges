@@ -1,5 +1,11 @@
 # TODO
 
+Sometimes Shape#draw will die in Bridgs, throwing an InvalidStateError.
+This seems to occur because the canvas cache of an object has a
+width or height of 0. This is probably happening due to the thin "helper"
+line that is being drawn. It might be possible to guard against this in
+Arcadia, enforcing a min canvas cache size of 1x1.
+
 [x] Draw bridges correctly; i.e. one line per bridge
 [x] Allow user to draw a second bridge between islands
 [x] Program a "win" condition

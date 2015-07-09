@@ -38,7 +38,7 @@ var Game = function (options) {
 Game.prototype = new Arcadia.Scene();
 
 Game.prototype.load = function () {
-    var levels = localStorage.getObject('levels') || [],
+    var levels = localStorage.getObject('levels') || LEVELS,
         vertexData,
         _this = this;
 

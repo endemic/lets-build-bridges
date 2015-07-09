@@ -109,7 +109,7 @@ Editor.prototype.save = function () {
 
     console.log(JSON.stringify(data));
     
-    levels = localStorage.getObject('levels') || [];
+    levels = localStorage.getObject('levels') || LEVELS;
     levels[this.level] = data;
     localStorage.setObject('levels', levels);
 };
