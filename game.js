@@ -193,7 +193,7 @@ Game.prototype.onPointEnd = function (points) {
                         };
                     }
                     
-                    // check collision
+                    // Check collision against other edges
                     j = this.edges.length;
                     while (j--) {
                         if (edge.collidesWith(this.edges[j])) {
@@ -201,6 +201,17 @@ Game.prototype.onPointEnd = function (points) {
                             vertexIds = [collision.vertices[0].id, collision.vertices[1].id];
                         }
                     }
+
+                    // TODO: Check collisions against other vertices
+                    // This seems to work OK
+                    j = this.vertices.length;
+                    while (j--) {
+                        if (edge.collidesWith(this.vertices[j]) && [this.startVertex.id, endVertex.id].indexOf(this.vertices[j].id) === -1) {
+                            collision = true;
+                            vertexIds = [];
+                        }
+                    }
+
                     // If successful, add the edge
                     if (!collision) {
                         this.startVertex.addEdge(edge);
@@ -221,11 +232,9 @@ Game.prototype.onPointEnd = function (points) {
                         } else {
                             Arcadia.playSfx('invalid');
                         }
-                    // Invalid move
-                    // TODO is this condition necessary?
+                    // Invalid move - tried to cross an edge or vertex
                     } else {
                         Arcadia.playSfx('invalid');
-                        throw new Error('strange condition');
                     }
                 } else {
                     // Diagonal edges aren't allowed
