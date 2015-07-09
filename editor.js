@@ -7,7 +7,8 @@ var Editor = function (options) {
         options = {};
     }
 
-    var _this = this;
+    var _this = this,
+        buttonPadding = 5;
 
     this.color = 'purple';
 
@@ -38,14 +39,14 @@ var Editor = function (options) {
     this.saveButton = new Arcadia.Button({
         color: null,
         border: '2px #fff',
-        padding: 5,
+        padding: buttonPadding,
         text: 'save',
-        font: '20px monospace',
+        font: '26px monospace',
         action: this.save.bind(this)
     });
     this.saveButton.position = {
-        x: Arcadia.WIDTH - this.saveButton.size.width / 2,
-        y: this.saveButton.size.height / 2
+        x: Arcadia.WIDTH - this.saveButton.size.width / 2 - buttonPadding,
+        y: this.saveButton.size.height / 2 + buttonPadding
     };
     this.add(this.saveButton);
 
@@ -53,17 +54,17 @@ var Editor = function (options) {
     this.backButton = new Arcadia.Button({
         color: null,
         border: '2px #fff',
-        padding: 5,
+        padding: buttonPadding,
         text: 'quit',
-        font: '20px monospace',
+        font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
             Arcadia.changeScene(LevelSelect, { selected: _this.level });
         }
     });
     this.backButton.position = {
-        x: this.backButton.size.width / 2,
-        y: this.backButton.size.height / 2
+        x: this.backButton.size.width / 2 + buttonPadding,
+        y: this.backButton.size.height / 2 + buttonPadding
     };
     this.add(this.backButton);
 
@@ -77,7 +78,7 @@ var Editor = function (options) {
         },
         position: {
             x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT / 2 + 25
+            y: Arcadia.HEIGHT / 2 + this.backButton.size.height + buttonPadding
         }
     });
     this.add(this.interactiveArea);
