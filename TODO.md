@@ -1,10 +1,13 @@
 # TODO
 
-Sometimes Shape#draw will die in Bridgs, throwing an InvalidStateError.
+[x] Sometimes Shape#draw will die in Bridges, throwing an InvalidStateError.
 This seems to occur because the canvas cache of an object has a
 width or height of 0. This is probably happening due to the thin "helper"
 line that is being drawn. It might be possible to guard against this in
 Arcadia, enforcing a min canvas cache size of 1x1.
+
+[ ] Button event handlers don't seem to get cleaned up properly when changing
+between scenes
 
 [x] Draw bridges correctly; i.e. one line per bridge
 [x] Allow user to draw a second bridge between islands
@@ -34,20 +37,23 @@ Arcadia, enforcing a min canvas cache size of 1x1.
 	* At this point, I don't care about a time limit or whatever
 
 [ ] Title screen will just be tap to start; take you to the next uncompleted puzzle
-[ ] Can get to level select by backing out of current puzzle, or at win condition
-[ ] Need some sort of button on the game view which allows user to quit puzzle
+[x] Can get to level select by backing out of current puzzle, or at win condition
+[x] Need some sort of button on the game view which allows user to quit puzzle
 [x] Draw edges in editor
 [x] Allow going back to level select after win
 [ ] Combine editor/game?
 [x] Scroll paginated level icons
+[ ] Handle fast clicks on pagination buttons
+[ ] Create ~100 puzzles
 [x] Upload to web
 [x] Create basic icon
 [ ] Alpha isn't passed down to children
 [x] `onPointEnd` seems to be getting called twice on iOS
 [x] Extract to its own repo
-[ ] Change red/green colors to be more readable w/ white text
-[ ] Check for collision of a vertex in between start/end vertices
-[ ] Make vertices larger/easier for touch
+[x] Change red/green colors to be more readable w/ white text
+[x] Check for collision of a vertex in between start/end vertices
+[x] Make vertices larger/easier for touch
+[ ] Create "credits" screen
 
 # Rules
 
