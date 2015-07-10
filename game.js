@@ -26,8 +26,15 @@ var Game = function (options) {
     this.vertices = [];
     this.edges = [];
 
-    // Load the puzzle here
-    this.level = options.level || 0;
+    // Show game title/basic help text if no level # passed
+    if (!options.hasOwnProperty('level')) {
+        this.level = 0;
+        this.isTitle = true;
+    } else {
+        this.level = options.level;
+    }
+
+    // Load the puzzle data
     this.load();
 
     // Line that is shown while dragging from one vertex to another
@@ -37,50 +44,75 @@ var Game = function (options) {
     this.add(this.activeEdge);
     this.deactivate(this.activeEdge);
 
-    // Create "quit" and "reset" buttons at top of screen
-    this.resetButton = new Arcadia.Button({
-        color: null,
-        border: '2px #fff',
-        padding: buttonPadding,
-        text: 'reset',
-        font: '26px monospace',
-        action: function () {
-            Arcadia.playSfx('button');
-            // Clear out all edges
-            self.vertices.forEach(function (vertex) {
-                vertex.edges = [];
-                vertex.updateColor();
-            });
+    if (this.isTitle) {
+        // Create title/help text
+        this.titleLabel = new Arcadia.Label({
+            position: {
+                x: Arcadia.WIDTH / 2,
+                y: Arcadia.HEIGHT / 4
+            },
+            color: '#fff',
+            font: '48px monospace',
+            text: "Let's\nBuild\nBridges!"
+        });
+        this.add(this.titleLabel);
 
-            self.edges.forEach(function (edge) {
-                self.remove(edge);
-            });
-            self.edges = [];
-        }
-    });
-    this.resetButton.position = {
-        x: Arcadia.WIDTH - this.resetButton.size.width / 2 - buttonPadding,
-        y: this.resetButton.size.height / 2 + buttonPadding
-    };
-    this.add(this.resetButton);
+        this.helpLabel = new Arcadia.Label({
+            position: {
+                x: Arcadia.WIDTH / 2,
+                y: Arcadia.HEIGHT - 100
+            },
+            color: '#fff',
+            font: '20 monospace',
+            text: (Arcadia.ENV.mobile ? 'Tap' : 'Click') + ' and drag to start.'
+        });
+        this.add(this.helpLabel);
+    } else {
+        // Create "quit" and "reset" buttons at top of screen
+        this.resetButton = new Arcadia.Button({
+            color: null,
+            border: '2px #fff',
+            padding: buttonPadding,
+            text: 'reset',
+            font: '26px monospace',
+            action: function () {
+                Arcadia.playSfx('button');
+                // Clear out all edges
+                self.vertices.forEach(function (vertex) {
+                    vertex.edges = [];
+                    vertex.updateColor();
+                });
 
-    // Go back to level select
-    this.backButton = new Arcadia.Button({
-        color: null,
-        border: '2px #fff',
-        padding: buttonPadding,
-        text: 'quit',
-        font: '26px monospace',
-        action: function () {
-            Arcadia.playSfx('button');
-            Arcadia.changeScene(LevelSelect, { selected: self.level });
-        }
-    });
-    this.backButton.position = {
-        x: this.backButton.size.width / 2 + buttonPadding,
-        y: this.backButton.size.height / 2 + buttonPadding
-    };
-    this.add(this.backButton);
+                self.edges.forEach(function (edge) {
+                    self.remove(edge);
+                });
+                self.edges = [];
+            }
+        });
+        this.resetButton.position = {
+            x: Arcadia.WIDTH - this.resetButton.size.width / 2 - buttonPadding,
+            y: this.resetButton.size.height / 2 + buttonPadding
+        };
+        this.add(this.resetButton);
+
+        // Go back to level select
+        this.backButton = new Arcadia.Button({
+            color: null,
+            border: '2px #fff',
+            padding: buttonPadding,
+            text: 'quit',
+            font: '26px monospace',
+            action: function () {
+                Arcadia.playSfx('button');
+                Arcadia.changeScene(LevelSelect, { selected: self.level });
+            }
+        });
+        this.backButton.position = {
+            x: this.backButton.size.width / 2 + buttonPadding,
+            y: this.backButton.size.height / 2 + buttonPadding
+        };
+        this.add(this.backButton);
+    }
 };
 
 Game.prototype = new Arcadia.Scene();

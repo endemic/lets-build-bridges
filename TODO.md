@@ -36,15 +36,13 @@ between scenes
 	  a green background
 	* At this point, I don't care about a time limit or whatever
 
-[ ] Title screen will just be tap to start; take you to the next uncompleted puzzle
+[x] Title screen will just be tap to start; take you to the next uncompleted puzzle
 [x] Can get to level select by backing out of current puzzle, or at win condition
 [x] Need some sort of button on the game view which allows user to quit puzzle
 [x] Draw edges in editor
 [x] Allow going back to level select after win
-[ ] Combine editor/game?
 [x] Scroll paginated level icons
 [x] Handle fast clicks on pagination buttons
-[ ] Create ~100 puzzles
 [x] Upload to web
 [x] Create basic icon
 [x] `onPointEnd` seems to be getting called twice on iOS
@@ -53,7 +51,10 @@ between scenes
 [x] Check for collision of a vertex in between start/end vertices
 [x] Make vertices larger/easier for touch
 [x] Create "credits" screen
+[ ] Allow users to share levels?
+[ ] Combine editor/game?
 [ ] Maybe some music?
+[ ] Create ~100 puzzles
 
 # Rules
 

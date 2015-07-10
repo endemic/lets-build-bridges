@@ -37,7 +37,6 @@
 	<script src="level-data.js"></script>
 
 	<!-- Scenes -->
-	<script src="title.js"></script>
 	<script src="game.js"></script>
 	<script src="level-select.js"></script>
 	<script src="editor.js"></script>
@@ -52,7 +51,7 @@
 			var game = new Arcadia.Game({
 				width: 375,
 				height: 667,
-				scene: LevelSelect,
+				scene: Game,
 				scaleToFit: true,
 				sounds: [
 					{ url: 'assets/sounds/button.mp3', id: 'button' },
