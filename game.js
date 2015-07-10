@@ -308,49 +308,21 @@ Game.prototype.checkCompleteness = function () {
 
 // Show a "u won, next level?" sort of message
 Game.prototype.win = function () {
-
     var nextButton,
         quitButton,
         completed,
         levels,
-        i = this.edges.length,
         delay = 2000,
         _this = this;
 
     // Hide edges
-    while (i--) {
-        this.edges[i].tween('alpha', 0, 1000);
-    }
+    this.edges.forEach(function (edge) {
+        edge.tween('alpha', 0, 1000);
+    });
 
-    // Particle emitters
-    this.particles = new Arcadia.Pool();
-    this.particles.factory = function () {
-        var emitter,
-            factory;
-
-        factory = function () {
-            return new Arcadia.Shape({
-                color: '#fff',
-                size: { width: 6, height: 6 },
-                vertices: 0
-            });
-        };
-        emitter = new Arcadia.Emitter(factory, 50);
-        emitter.duration = 1.0;
-        emitter.scale = -1;
-        return emitter;
-    };
-    while (this.particles.length < this.vertices.length) {
-        this.particles.activate();
-    }
-    this.particles.deactivateAll();
-    this.add(this.particles);
-
-    // Shrink vertices, then show an "explosion"
+    // Shrink vertices
     this.vertices.forEach(function (vertex) {
-        vertex.tween('scale', 0, delay, 'elasticInOut', function () {
-            _this.particles.activate().startAt(vertex.position.x, vertex.position.y);
-        });
+        vertex.tween('scale', 0, delay, 'elasticIn');
     });
 
     completed = localStorage.getObject('completed') || Array(LEVELS.length);
@@ -379,6 +351,8 @@ Game.prototype.win = function () {
             }
         }
     });
+    this.add(nextButton);
+    this.deactivate(nextButton);
 
     quitButton = new Arcadia.Button({
         position: {
@@ -395,9 +369,11 @@ Game.prototype.win = function () {
             Arcadia.changeScene(LevelSelect, { selected: _this.level });
         }
     });
+    this.add(quitButton);
+    this.deactivate(quitButton);
 
     setTimeout(function () {
-        _this.add(nextButton);
-        _this.add(quitButton);
+        _this.activate(nextButton);
+        _this.activate(quitButton);
     }, delay);
 };
