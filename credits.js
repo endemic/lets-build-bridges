@@ -8,7 +8,7 @@ var Credits = function () {
         button,
         description;
 
-    this.color = 'blue';
+    this.color = 'purple';
 
     title = new Arcadia.Label({
         position: {
@@ -16,7 +16,7 @@ var Credits = function () {
             y: Arcadia.HEIGHT / 4
         },
         font: '48px monospace',
-        text: 'Thanks For Playing!'
+        text: 'Thanks\nFor\nPlaying!'
     });
     this.add(title);
 
@@ -26,7 +26,7 @@ var Credits = function () {
             y: Arcadia.HEIGHT / 4 + 200
         },
         font: '20px monospace',
-        text: 'Programming by Nathan Demick\nPuzzle concept by Nikoli\n&copy; 2015 Ganbaru Games'
+        text: 'Programming by Nathan Demick\nPuzzle concept by Nikoli\n(c) 2015 Ganbaru Games\nhttp://ganbarugames.com'
     });
     this.add(description);
 
