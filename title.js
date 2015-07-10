@@ -1,25 +1,27 @@
 /*jslint sloppy: true, plusplus: true */
-/*globals Arcadia */
+/*globals Arcadia, Game */
 
 var Title = function () {
     Arcadia.Scene.apply(this, arguments);
 
-    this.color = 'blue';
+    var button,
+        title;
 
-    // Title
-    var title = new Arcadia.Label({
+    this.color = 'purple';
+
+    title = new Arcadia.Label({
         position: {
             x: Arcadia.WIDTH / 2,
             y: Arcadia.HEIGHT / 4
         },
         color: '#fff',
         font: '48px monospace',
-        text: "Let's Build Bridges"
+        text: "Let's\nBuild\nBridges!"
     });
     this.add(title);
 
     // Start button
-    var button = new Arcadia.Button({
+    button = new Arcadia.Button({
         position: {
             x: Arcadia.WIDTH / 2,
             y: Arcadia.HEIGHT - 100
