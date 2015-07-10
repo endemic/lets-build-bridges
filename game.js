@@ -1,5 +1,5 @@
 /*jslint sloppy: true, plusplus: true */
-/*globals Arcadia */
+/*globals window, Arcadia, LevelSelect, Credits, localStorage, LEVELS, Vertex, Edge */
 
 var Game = function (options) {
     Arcadia.Scene.apply(this, arguments);
@@ -8,7 +8,7 @@ var Game = function (options) {
     }
 
     var buttonPadding = 5,
-        _this = this;
+        self = this;
 
     // Background color
     this.color = 'purple';
@@ -64,7 +64,7 @@ var Game = function (options) {
         font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            Arcadia.changeScene(LevelSelect, { selected: _this.level });
+            Arcadia.changeScene(LevelSelect, { selected: self.level });
         }
     });
     this.backButton.position = {
@@ -78,31 +78,33 @@ Game.prototype = new Arcadia.Scene();
 
 Game.prototype.load = function () {
     var levels = localStorage.getObject('levels') || LEVELS,
-        vertexData,
-        _this = this;
+        data,
+        self = this;
 
     if (levels[this.level] === undefined || levels[this.level] === null) {
-        Arcadia.changeScene(LevelSelect, { selected: _this.level });
+        Arcadia.changeScene(LevelSelect, { selected: self.level });
         alert('No level data for #' + (this.level + 1));
     }
 
     data = levels[this.level];
 
     // Re-create vertices
-    data['vertices'].forEach(function (data) {
+    data.vertices.forEach(function (data) {
         var v = new Vertex({
             position: data.position,
             number: data.number,
-            id: data.id,
+            id: data.id
         });
 
-        _this.vertices.push(v);
-        _this.add(v);
+        self.vertices.push(v);
+        self.add(v);
     });
 };
 
 Game.prototype.onPointStart = function (points) {
-    var i, vertex;
+    var i,
+        distance,
+        vertex;
 
     // Show the "cursor" object; move it to the mouse/touch point
     this.activate(this.cursor);
@@ -118,7 +120,7 @@ Game.prototype.onPointStart = function (points) {
         // Determine if user touched a vertex
         if (this.cursor.collidesWith(vertex)) {
             this.startVertex = vertex;
-            var distance = Math.sqrt(Math.pow(this.cursor.position.x - this.startVertex.position.x, 2) + Math.pow(this.cursor.position.y - this.startVertex.position.y, 2));
+            distance = Math.sqrt(Math.pow(this.cursor.position.x - this.startVertex.position.x, 2) + Math.pow(this.cursor.position.y - this.startVertex.position.y, 2));
 
             // If so, start drawing a line
             this.activate(this.activeEdge);
@@ -157,7 +159,13 @@ Game.prototype.onPointEnd = function (points) {
         edge,
         endVertex,
         i,
+        j,
         vertexIds;
+
+    this.cursor.position = {
+        x: points[0].x,
+        y: points[0].y
+    };
 
     if (this.startVertex) {
         i = this.vertices.length;
@@ -165,7 +173,7 @@ Game.prototype.onPointEnd = function (points) {
             endVertex = this.vertices[i];
 
             // Determine if player ended click/touch on a vertex (that's different from the starting vertex)
-            if (this.cursor.collidesWith(endVertex) && endVertex.id != this.startVertex.id) {
+            if (this.cursor.collidesWith(endVertex) && endVertex.id !== this.startVertex.id) {
                 // If valid, 90 degree move
                 if (this.startVertex.position.x === endVertex.position.x || this.startVertex.position.y === endVertex.position.y) {
                     // Place edge object
@@ -202,8 +210,7 @@ Game.prototype.onPointEnd = function (points) {
                         }
                     }
 
-                    // TODO: Check collisions against other vertices
-                    // This seems to work OK
+                    // Check collisions against other vertices
                     j = this.vertices.length;
                     while (j--) {
                         if (edge.collidesWith(this.vertices[j]) && [this.startVertex.id, endVertex.id].indexOf(this.vertices[j].id) === -1) {
@@ -268,7 +275,7 @@ Game.prototype.onPointEnd = function (points) {
 // https://en.wikipedia.org/wiki/Depth-first_search
 // Need each vertex to store a list of its connected edges
 Game.prototype.search = function (vertex, listOfTraversedVertices) {
-    var _this = this;
+    var self = this;
 
     if (listOfTraversedVertices.indexOf(vertex.id) !== -1) {
         return;
@@ -276,8 +283,8 @@ Game.prototype.search = function (vertex, listOfTraversedVertices) {
 
     listOfTraversedVertices.push(vertex.id);
     vertex.edges.forEach(function (edge) {
-       _this.search(edge.vertices[0], listOfTraversedVertices);
-       _this.search(edge.vertices[1], listOfTraversedVertices);
+        self.search(edge.vertices[0], listOfTraversedVertices);
+        self.search(edge.vertices[1], listOfTraversedVertices);
     });
 };
 
@@ -311,9 +318,8 @@ Game.prototype.win = function () {
     var nextButton,
         quitButton,
         completed,
-        levels,
         delay = 2000,
-        _this = this;
+        self = this;
 
     // Hide edges
     this.edges.forEach(function (edge) {
@@ -325,7 +331,7 @@ Game.prototype.win = function () {
         vertex.tween('scale', 0, delay, 'elasticIn');
     });
 
-    completed = localStorage.getObject('completed') || Array(LEVELS.length);
+    completed = localStorage.getObject('completed') || new Array(LEVELS.length);
     completed[this.level] = true;
     localStorage.setObject('completed', completed);
 
@@ -366,14 +372,14 @@ Game.prototype.win = function () {
         font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            Arcadia.changeScene(LevelSelect, { selected: _this.level });
+            Arcadia.changeScene(LevelSelect, { selected: self.level });
         }
     });
     this.add(quitButton);
     this.deactivate(quitButton);
 
-    setTimeout(function () {
-        _this.activate(nextButton);
-        _this.activate(quitButton);
+    window.setTimeout(function () {
+        self.activate(nextButton);
+        self.activate(quitButton);
     }, delay);
 };
