@@ -2,7 +2,7 @@ var Edge = function (options) {
     Arcadia.Shape.apply(this, arguments);
 
     this.color = '#fff';
-    this.border= '2px #fff';
+    this.border = '2px #fff';
     this.count = 1;
 
     this.vertices = [];

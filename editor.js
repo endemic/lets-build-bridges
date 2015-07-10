@@ -7,7 +7,7 @@ var Editor = function (options) {
         options = {};
     }
 
-    var _this = this,
+    var self = this,
         buttonPadding = 5;
 
     this.color = 'purple';
@@ -50,6 +50,10 @@ var Editor = function (options) {
     };
     this.add(this.saveButton);
 
+    // Initially disable it, until user creates a well-formed puzzle
+    this.saveButton.disabled = true;
+    this.saveButton.alpha = 0.5;
+
     // Go back to level select
     this.backButton = new Arcadia.Button({
         color: null,
@@ -59,7 +63,7 @@ var Editor = function (options) {
         font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            Arcadia.changeScene(LevelSelect, { selected: _this.level });
+            Arcadia.changeScene(LevelSelect, { selected: self.level });
         }
     });
     this.backButton.position = {
@@ -118,7 +122,7 @@ Editor.prototype.save = function () {
 Editor.prototype.load = function () {
     var levels,
         vertexData,
-        _this = this;
+        self = this;
 
     levels = localStorage.getObject('levels') || [];
 
@@ -129,7 +133,7 @@ Editor.prototype.load = function () {
 
     data = levels[this.level];
 
-    data['vertices'].forEach(function (data) {
+    data.vertices.forEach(function (data) {
         // Re-create vertices
         var v = new Vertex({
             position: data.position,
@@ -137,16 +141,16 @@ Editor.prototype.load = function () {
             id: data.id,
         });
 
-        _this.vertices.push(v);
-        _this.add(v);
+        self.vertices.push(v);
+        self.add(v);
     });
 
-    data['edges'].forEach(function (data) {
+    data.edges.forEach(function (data) {
         // Re-create edges
         var e, v1, v2;
 
-        v1 = _this.vertices.find(function (v) { return v.id === data.vertexIds[0]; });
-        v2 = _this.vertices.find(function (v) { return v.id === data.vertexIds[1]; });
+        v1 = self.vertices.find(function (v) { return v.id === data.vertexIds[0]; });
+        v2 = self.vertices.find(function (v) { return v.id === data.vertexIds[1]; });
 
         e = new Edge();
         e.vertices = [v1, v2];
@@ -177,8 +181,8 @@ Editor.prototype.load = function () {
             e.increment();
         }
 
-        _this.edges.push(e);
-        _this.add(e);
+        self.edges.push(e);
+        self.add(e);
     });
 };
 
@@ -375,7 +379,8 @@ Editor.prototype.onPointEnd = function (points) {
 
         // place a vertex here if it won't collide w/ an existing edge or 
         // vertex, and we didn't _just_ remove an edge
-        var halfSpacing = 26;
+        // Vertices need to be > 16px apart, so 16.5
+        var halfSpacing = 34;
         if (!removedEdge) {
             v = new Vertex({
                 position: {
@@ -406,13 +411,13 @@ Editor.prototype.onPointEnd = function (points) {
         }
     }
 
-    // this.checkCompleteness();
+    this.checkCompleteness();
 };
 
 // https://en.wikipedia.org/wiki/Depth-first_search
 // Need each vertex to store a list of its connected edges
 Editor.prototype.search = function (vertex, listOfTraversedVertices) {
-    var _this = this;
+    var self = this;
 
     if (listOfTraversedVertices.indexOf(vertex.id) !== -1) {
         return;
@@ -420,14 +425,17 @@ Editor.prototype.search = function (vertex, listOfTraversedVertices) {
 
     listOfTraversedVertices.push(vertex.id);
     vertex.edges.forEach(function (edge) {
-       _this.search(edge.vertices[0], listOfTraversedVertices);
-       _this.search(edge.vertices[1], listOfTraversedVertices);
+       self.search(edge.vertices[0], listOfTraversedVertices);
+       self.search(edge.vertices[1], listOfTraversedVertices);
     });
 };
 
 Editor.prototype.checkCompleteness = function () {
     var complete,
         foundVertices;
+
+    this.saveButton.disabled = true;
+    this.saveButton.alpha = 0.5;
 
     // Fast check - ensure all vertices have correct # of edges
     complete = this.vertices.every(function (vertex) {
@@ -440,7 +448,9 @@ Editor.prototype.checkCompleteness = function () {
         this.search(this.vertices[0], foundVertices);
         
         if (foundVertices.length === this.vertices.length) {
-            // Enable a "save" button
+            // Enable the "save" button
+            this.saveButton.disabled = false;
+            this.saveButton.alpha = 1;
         }
     }
 };
