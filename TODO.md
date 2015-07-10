@@ -53,6 +53,8 @@ between scenes
 [x] Create "credits" screen
 [ ] Allow users to share levels?
 [ ] Combine editor/game?
+[x] Determine why vertices that are very close together draw edges 90deg off
+[ ] Make minimum distance between nodes in editor larger
 [ ] Maybe some music?
 [ ] Create ~100 puzzles
 

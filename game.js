@@ -348,8 +348,8 @@ Game.prototype.checkCompleteness = function () {
         if (foundVertices.length === this.vertices.length) {
             this.win();
         } else {
-            // TODO: display this in a better way
-            alert('nice try, cheeter');
+            // TODO: display this in a better (i.e. non-alert) way
+            alert('All nodes must be connected!');
         }
     }
 };
@@ -401,26 +401,30 @@ Game.prototype.win = function () {
     this.add(nextButton);
     this.deactivate(nextButton);
 
-    quitButton = new Arcadia.Button({
-        position: {
-            x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT / 2 + 25
-        },
-        color: null,
-        border: '2px #fff',
-        padding: 15,
-        text: 'quit',
-        font: '26px monospace',
-        action: function () {
-            Arcadia.playSfx('button');
-            Arcadia.changeScene(LevelSelect, { selected: self.level });
-        }
-    });
-    this.add(quitButton);
-    this.deactivate(quitButton);
+    if (!this.isTitle) {
+        quitButton = new Arcadia.Button({
+            position: {
+                x: Arcadia.WIDTH / 2,
+                y: Arcadia.HEIGHT / 2 + 25
+            },
+            color: null,
+            border: '2px #fff',
+            padding: 15,
+            text: 'quit',
+            font: '26px monospace',
+            action: function () {
+                Arcadia.playSfx('button');
+                Arcadia.changeScene(LevelSelect, { selected: self.level });
+            }
+        });
+        this.add(quitButton);
+        this.deactivate(quitButton);
+    }
 
     window.setTimeout(function () {
         self.activate(nextButton);
-        self.activate(quitButton);
+        if (!self.isTitle) {
+            self.activate(quitButton);
+        }
     }, delay);
 };

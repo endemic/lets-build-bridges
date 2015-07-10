@@ -149,6 +149,7 @@ var LevelSelect = function (options) {
     });
     this.add(this.playButton);
 
+    // TODO: Remove this before publishing 1st draft
     this.editButton = new Arcadia.Button({
         position: {
             x: Arcadia.WIDTH / 2,
