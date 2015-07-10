@@ -6,7 +6,7 @@ width or height of 0. This is probably happening due to the thin "helper"
 line that is being drawn. It might be possible to guard against this in
 Arcadia, enforcing a min canvas cache size of 1x1.
 
-[ ] Button event handlers don't seem to get cleaned up properly when changing
+[x] Button event handlers don't seem to get cleaned up properly when changing
 between scenes
 
 [x] Draw bridges correctly; i.e. one line per bridge
@@ -43,17 +43,17 @@ between scenes
 [x] Allow going back to level select after win
 [ ] Combine editor/game?
 [x] Scroll paginated level icons
-[ ] Handle fast clicks on pagination buttons
+[x] Handle fast clicks on pagination buttons
 [ ] Create ~100 puzzles
 [x] Upload to web
 [x] Create basic icon
-[ ] Alpha isn't passed down to children
 [x] `onPointEnd` seems to be getting called twice on iOS
 [x] Extract to its own repo
 [x] Change red/green colors to be more readable w/ white text
 [x] Check for collision of a vertex in between start/end vertices
 [x] Make vertices larger/easier for touch
-[ ] Create "credits" screen
+[x] Create "credits" screen
+[ ] Maybe some music?
 
 # Rules
 
