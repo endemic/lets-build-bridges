@@ -46,7 +46,16 @@ var Game = function (options) {
         font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            // TODO: clear out all edges
+            // Clear out all edges
+            self.vertices.forEach(function (vertex) {
+                vertex.edges = [];
+                vertex.updateColor();
+            });
+
+            self.edges.forEach(function (edge) {
+                self.remove(edge);
+            });
+            self.edges = [];
         }
     });
     this.resetButton.position = {
