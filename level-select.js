@@ -1,5 +1,5 @@
 /*jslint sloppy: true, plusplus: true */
-/*globals Arcadia */
+/*globals Arcadia, Game, Editor, Vertex, LEVELS, localStorage, window */
 
 var LevelSelect = function (options) {
     Arcadia.Scene.apply(this, arguments);
@@ -21,7 +21,7 @@ var LevelSelect = function (options) {
     // can fit on one screen
 
     // Can link to a more info/feedback view from here as well
-    
+
     var spacing = Vertex.SIZE + 10,
         completed,
         levels,
@@ -37,10 +37,11 @@ var LevelSelect = function (options) {
         page,
         y,
         x,
+        offset,
         shape,
-        _this;
+        self;
 
-    _this = this;
+    self = this;
     this.color = 'purple';
     this.levels = [];
     this.selected = null;
@@ -101,8 +102,7 @@ var LevelSelect = function (options) {
         text: '<-',
         font: '26px monospace',
         action: function () {
-            Arcadia.playSfx('button');
-            _this.previousPage();
+            self.previousPage();
         }
     });
     this.add(this.previousButton);
@@ -117,8 +117,7 @@ var LevelSelect = function (options) {
         text: '->',
         font: '26px monospace',
         action: function () {
-            Arcadia.playSfx('button');
-            _this.nextPage();
+            self.nextPage();
         }
     });
     this.add(this.nextButton);
@@ -145,7 +144,7 @@ var LevelSelect = function (options) {
         font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            Arcadia.changeScene(Game, { level: _this.selected });
+            Arcadia.changeScene(Game, { level: self.selected });
         }
     });
     this.add(this.playButton);
@@ -162,7 +161,7 @@ var LevelSelect = function (options) {
         font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            Arcadia.changeScene(Editor, { level: _this.selected });
+            Arcadia.changeScene(Editor, { level: self.selected });
         }
     });
     this.add(this.editButton);
@@ -211,11 +210,15 @@ LevelSelect.prototype.onPointEnd = function () {
     }
 };
 
-// TODO: fix Arcadia tween to allow for compound values
 LevelSelect.prototype.nextPage = function () {
-    var offset = -Arcadia.WIDTH;
+    var offset = -Arcadia.WIDTH,
+        self = this;
 
     if (this.currentPage < this.pages.length - 1) {
+        Arcadia.playSfx('button');
+        this.nextButton.disabled = true;
+        this.nextButton.alpha = 0.5;
+
         // Move (old) current page to the left
         this.pages[this.currentPage].forEach(function (shape) {
             shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 500, 'expoInOut');
@@ -229,12 +232,23 @@ LevelSelect.prototype.nextPage = function () {
 
         this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.pages.length;
         localStorage.setItem('currentPage', this.currentPage);
+
+        window.setTimeout(function () {
+            self.nextButton.disabled = false;
+            self.nextButton.alpha = 1;
+        }, 500);
     }
 };
 
 LevelSelect.prototype.previousPage = function () {
-    var offset = Arcadia.WIDTH;
+    var offset = Arcadia.WIDTH,
+        self = this;
+
     if (this.currentPage > 0) {
+        Arcadia.playSfx('button');
+        this.previousButton.disabled = true;
+        this.previousButton.alpha = 0.5;
+
         // Move (old) current page to the right
         this.pages[this.currentPage].forEach(function (shape) {
             shape.tween('position', { x: shape.position.x + offset, y: shape.position.y }, 500, 'expoInOut');
@@ -248,5 +262,10 @@ LevelSelect.prototype.previousPage = function () {
 
         this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.pages.length;
         localStorage.setItem('currentPage', this.currentPage);
+
+        window.setTimeout(function () {
+            self.previousButton.disabled = false;
+            self.previousButton.alpha = 1;
+        }, 500);
     }
 };
