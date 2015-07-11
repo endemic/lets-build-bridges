@@ -372,7 +372,13 @@ Game.prototype.win = function () {
         vertex.tween('scale', 0, delay, 'elasticIn');
     });
 
-    completed = localStorage.getObject('completed') || new Array(LEVELS.length);
+    completed = localStorage.getObject('completed')
+    if (completed === null) {
+        completed = [];
+        while (completed.length < LEVELS.length) {
+            completed.push(null);
+        }
+    }
     completed[this.level] = true;
     localStorage.setObject('completed', completed);
 

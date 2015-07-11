@@ -57,6 +57,8 @@ between scenes
 [x] Make minimum distance between nodes in editor larger
 [ ] Maybe some music?
 [ ] Create ~100 puzzles
+[ ] Add "interactive area" hitmap for puzzle
+[ ] Turn off drawing line when puzzle is complete
 
 # Rules
 
