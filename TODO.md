@@ -58,7 +58,7 @@ between scenes
 [ ] Maybe some music?
 [ ] Create ~100 puzzles
 [ ] Add "interactive area" hitmap for puzzle
-[ ] Turn off drawing line when puzzle is complete
+[x] Turn off drawing line when puzzle is complete
 
 # Rules
 

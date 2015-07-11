@@ -143,6 +143,10 @@ Game.prototype.load = function () {
 };
 
 Game.prototype.onPointStart = function (points) {
+    if (this.gameOver) {
+        return;
+    }
+
     var i,
         distance,
         vertex;
@@ -177,6 +181,10 @@ Game.prototype.onPointStart = function (points) {
 };
 
 Game.prototype.onPointMove = function (points) {
+    if (this.gameOver) {
+        return;
+    }
+
     this.cursor.position = {
         x: points[0].x,
         y: points[0].y
@@ -196,6 +204,10 @@ Game.prototype.onPointMove = function (points) {
 };
 
 Game.prototype.onPointEnd = function (points) {
+    if (this.gameOver) {
+        return;
+    }
+
     var collision,
         edge,
         endVertex,
@@ -349,7 +361,9 @@ Game.prototype.checkCompleteness = function () {
             this.win();
         } else {
             // TODO: display this in a better (i.e. non-alert) way
-            alert('All nodes must be connected!');
+            window.setTimeout(function () {
+                alert('All nodes must be connected!');
+            }, 1000);
         }
     }
 };
@@ -361,6 +375,9 @@ Game.prototype.win = function () {
         completed,
         delay = 2000,
         self = this;
+
+    // Disable touch/mouse methods for drawing
+    this.gameOver = true;
 
     // Hide edges
     this.edges.forEach(function (edge) {
