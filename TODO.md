@@ -59,6 +59,7 @@ between scenes
 [ ] Create ~100 puzzles
 [ ] Add "interactive area" hitmap for puzzle
 [x] Turn off drawing line when puzzle is complete
+[ ] Create Cordova project
 
 # Rules
 
