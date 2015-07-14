@@ -7,7 +7,8 @@ var Game = function (options) {
         options = {};
     }
 
-    var buttonPadding = 5,
+    var actionWord = (Arcadia.ENV.mobile ? 'Tap' : 'Click'),
+        buttonPadding = 5,
         self = this;
 
     // Background color
@@ -64,7 +65,7 @@ var Game = function (options) {
             },
             color: '#fff',
             font: '20 monospace',
-            text: (Arcadia.ENV.mobile ? 'Tap' : 'Click') + ' and drag to start.'
+            text: actionWord + ' and drag to draw.\n' + actionWord + ' to erase.'
         });
         this.add(this.helpLabel);
     } else {
