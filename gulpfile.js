@@ -26,3 +26,14 @@ gulp.task('compress', function () {
                .pipe(rename('lets-build-bridges.min.js'))
                .pipe(gulp.dest('dist'));
 });
+
+gulp.task('cordova', ['concat', 'compress'], function () {
+    gulp.src(['dist/lets-build-bridges.min.js'], { base: 'dist' })
+        .pipe(gulp.dest('cordova/www/js'));
+
+    gulp.src(['node_modules/arcadia/dist/arcadia.js'], { base: 'node_modules/arcadia/dist' })
+        .pipe(gulp.dest('cordova/www/js'));
+
+    gulp.src(['assets/**'])
+        .pipe(gulp.dest('cordova/www/assets'));
+});
