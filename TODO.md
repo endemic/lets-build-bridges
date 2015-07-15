@@ -1,5 +1,12 @@
 # TODO
 
+# Cordova project
+
+[ ] Create/reference app icon (http://makeappicon.com/)
+[ ] Add splash screen images
+[ ] Add programming for IAP (https://github.com/Fovea/cordova-plugin-purchase-demo/blob/master/www/js/index.js)
+[ ] Create app in iTunesConnect 
+
 [x] Sometimes Shape#draw will die in Bridges, throwing an InvalidStateError.
 This seems to occur because the canvas cache of an object has a
 width or height of 0. This is probably happening due to the thin "helper"
@@ -59,7 +66,7 @@ between scenes
 [ ] Create ~100 puzzles
 [ ] Add "interactive area" hitmap for puzzle
 [x] Turn off drawing line when puzzle is complete
-[ ] Create Cordova project
+[x] Create Cordova project
 
 # Rules
 
