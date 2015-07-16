@@ -8,25 +8,14 @@ var LevelSelect = function (options) {
         options = {};
     }
 
-    // Create grid of puzzle buttons - clicking one will take you to
-    // the puzzle immediately (but temporarily will need a play/edit distinction
-    // so that levels can be created)
-
     // Puzzles hidden behind IAP wall will be red, normal will be purple,
     // completed will be green
-
-    // Need to allow circular buttons in Arcadia.Button
-
-    // Probably need pagination, as well, since will have more puzzles than
-    // can fit on one screen
-
-    // Can link to a more info/feedback view from here as well
 
     var spacing = Vertex.SIZE + 10,
         completed,
         levels,
         counter = 0,
-        rows = 5,   // Show 25 levels per page; maybe shoot for 100 levels?
+        rows = 5,   // Show 25 levels per page
         columns = 5,
         centerX = Arcadia.WIDTH / 2,
         centerY = Arcadia.HEIGHT / 2,
@@ -48,7 +37,7 @@ var LevelSelect = function (options) {
     completed = localStorage.getObject('completed') || Array(LEVELS.length);
     levels = localStorage.getObject('levels') || LEVELS;
 
-    // Object that tracks player's cursor/finger; used for collision detection 
+    // Object that tracks player's cursor/finger; used for collision detection
     this.cursor = new Arcadia.Shape({
         size: { width: 8, height: 8 },
         vertices: 0,
@@ -61,6 +50,7 @@ var LevelSelect = function (options) {
     this.pages = [
         [], [], [], []
     ];
+
     this.currentPage = parseInt(localStorage.getItem('currentPage'), 10) || 0;
 
     for (page = 0; page < this.pages.length; page += 1) {
@@ -91,7 +81,6 @@ var LevelSelect = function (options) {
         }
     }
 
-    // TODO: support circular buttons?
     this.previousButton = new Arcadia.Button({
         position: {
             x: startX,
@@ -100,6 +89,11 @@ var LevelSelect = function (options) {
         color: null,
         border: '2px #fff',
         text: '<-',
+        size: {
+            width: Vertex.SIZE,
+            height: Vertex.SIZE
+        },
+        vertices: 0,
         font: '26px monospace',
         action: function () {
             self.previousPage();
@@ -115,6 +109,11 @@ var LevelSelect = function (options) {
         color: null,
         border: '2px #fff',
         text: '->',
+        size: {
+            width: Vertex.SIZE,
+            height: Vertex.SIZE
+        },
+        vertices: 0,
         font: '26px monospace',
         action: function () {
             self.nextPage();
