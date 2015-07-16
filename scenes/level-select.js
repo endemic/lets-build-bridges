@@ -170,6 +170,12 @@ var LevelSelect = function (options) {
         this.selected = options.selected;
         this.levels[this.selected].highlight();
     }
+
+    if (this.currentPage === 0) {
+        this.previousButton.alpha = 0.5;
+    } else if (this.currentPage === this.pages.length - 1) {
+        this.nextButton.alpha = 0.5;
+    }
 };
 
 LevelSelect.prototype = new Arcadia.Scene();
@@ -235,8 +241,14 @@ LevelSelect.prototype.nextPage = function () {
 
         window.setTimeout(function () {
             self.nextButton.disabled = false;
-            self.nextButton.alpha = 1;
+            if (self.currentPage < self.pages.length - 1) {
+                self.nextButton.alpha = 1;
+            }
         }, 500);
+
+        if (this.previousButton.alpha < 1) {
+            this.previousButton.alpha = 1;
+        }
     }
 };
 
@@ -265,7 +277,13 @@ LevelSelect.prototype.previousPage = function () {
 
         window.setTimeout(function () {
             self.previousButton.disabled = false;
-            self.previousButton.alpha = 1;
+            if (self.currentPage > 0) {
+                self.previousButton.alpha = 1;
+            }
         }, 500);
+
+        if (this.nextButton.alpha < 1) {
+            this.nextButton.alpha = 1;
+        }
     }
 };
