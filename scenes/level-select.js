@@ -148,23 +148,23 @@ var LevelSelect = function (options) {
     });
     this.add(this.playButton);
 
-    // TODO: Remove this before publishing 1st draft
-    this.editButton = new Arcadia.Button({
-        position: {
-            x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT - 100
-        },
-        color: null,
-        border: '2px #fff',
-        padding: 15,
-        text: 'edit',
-        font: '26px monospace',
-        action: function () {
-            Arcadia.playSfx('button');
-            Arcadia.changeScene(Editor, { level: self.selected });
-        }
-    });
-    this.add(this.editButton);
+    // TODO: Eventually re-enable the editor for users
+    // this.editButton = new Arcadia.Button({
+    //     position: {
+    //         x: Arcadia.WIDTH / 2,
+    //         y: Arcadia.HEIGHT - 100
+    //     },
+    //     color: null,
+    //     border: '2px #fff',
+    //     padding: 15,
+    //     text: 'edit',
+    //     font: '26px monospace',
+    //     action: function () {
+    //         Arcadia.playSfx('button');
+    //         Arcadia.changeScene(Editor, { level: self.selected });
+    //     }
+    // });
+    // this.add(this.editButton);
 
     if (options.selected !== undefined) {
         this.selected = options.selected;
