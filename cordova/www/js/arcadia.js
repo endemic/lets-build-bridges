@@ -301,7 +301,7 @@ if (typeof exports !== 'undefined') {
     __extends(Button, _super);
 
     function Button(args) {
-      var Arcadia, Label;
+      var Arcadia, Label, height;
       if (args == null) {
         args = {};
       }
@@ -313,14 +313,14 @@ if (typeof exports !== 'undefined') {
         font: args.font
       });
       this.label.drawCanvasCache();
-      if (!args.size) {
-        args.size = {
+      Button.__super__.constructor.call(this, args);
+      if (!args.hasOwnProperty('size')) {
+        height = this.vertices === 0 ? this.label.size.width : this.label.size.height;
+        this.size = {
           width: this.label.size.width + this.padding,
-          height: this.label.size.height + this.padding
+          height: height + this.padding
         };
       }
-      Button.__super__.constructor.call(this, args);
-      this.label.fixed = false;
       this.add(this.label);
       this.fixed = true;
       if (args.hasOwnProperty('action')) {
