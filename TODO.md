@@ -2,10 +2,12 @@
 
 # Cordova project
 
-[ ] Create/reference app icon (http://makeappicon.com/)
-[ ] Add splash screen images
+[x] Create/reference app icon (http://makeappicon.com/)
+[x] Add splash screen images
 [ ] Add programming for IAP (https://github.com/Fovea/cordova-plugin-purchase-demo/blob/master/www/js/index.js)
-[ ] Create app in iTunesConnect 
+[ ] Add screenshots for various devices
+[ ] Create a video preview
+[x] Create app in iTunesConnect
 
 [x] Sometimes Shape#draw will die in Bridges, throwing an InvalidStateError.
 This seems to occur because the canvas cache of an object has a
