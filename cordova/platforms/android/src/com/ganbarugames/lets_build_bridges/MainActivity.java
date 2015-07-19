@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.ganbarugames.lets_build_bridges;
+package com.ganbarugames.bridges;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

@@ -26,18 +26,24 @@
 	}
 	</style>
 
+	<!-- Cordova -->
 	<script type="text/javascript" src="cordova.js"></script>
 
-	<!-- Engine -->
+	<!-- Framework -->
 	<script src="js/arcadia.js"></script>
+
+	<!-- Game -->
 	<script src="js/lets-build-bridges.min.js"></script>
 
 	<script type="text/javascript">
-		document.addEventListener('deviceready', function () {
+		document.addEventListener('deviceready', initialize, false);
+		// window.onload = initialize;
+
+		function initialize() {
 			var game = new Arcadia.Game({
 				width: 375,
 				height: 667,
-				scene: Game,
+				scene: GameScene,
 				scaleToFit: true,
 				sounds: [
 					{ url: 'assets/sounds/button.mp3', id: 'button' },
@@ -46,7 +52,9 @@
 					{ url: 'assets/sounds/invalid.mp3', id: 'invalid' }
 				]
 			});
-		}, false);
+
+			UnlockScene.initializeStore();
+		}
 	</script>
 </head>
 <body>

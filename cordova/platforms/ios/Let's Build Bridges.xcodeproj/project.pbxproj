@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -42,6 +41,7 @@
 		A2355D3CC09F4EDDAFE5DA6B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF0F3D2076DD419B8128DD77 /* StoreKit.framework */; };
 		A716B07781734C28955D901D /* SKProduct+LocalizedPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = D30F8B7303594906A0F0C726 /* SKProduct+LocalizedPrice.m */; };
 		AB3955482CF24A609D3544E5 /* InAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A6F28BA2D24FB4AD775934 /* InAppPurchase.m */; };
+		AC4ACC46D0944FDFA1AAFB62 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B10F4EFC224C40CDB7360365 /* CDVLogger.m */; };
 		B3A73B2ADAFE4E81B339EE18 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E94FAEECF2442688BEDC00 /* CDVSplashScreen.m */; };
 		B9D380DF65A5497BAE571217 /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAC12657A7849679BDBBBB2 /* CDVViewController+SplashScreen.m */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
@@ -65,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		077D54E051C74538B59E62E5 /* CDVLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVLogger.h; path = "cordova-plugin-console/CDVLogger.h"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Let's Build Bridges.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Let's Build Bridges.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +110,7 @@
 		7E7966DC1810823500FA85AD /* icon-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small.png"; sourceTree = "<group>"; };
 		7E7966DD1810823500FA85AD /* icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small@2x.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Let's Build Bridges-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Let's Build Bridges-Info.plist"; path = "../Let's Build Bridges-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		B10F4EFC224C40CDB7360365 /* CDVLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLogger.m; path = "cordova-plugin-console/CDVLogger.m"; sourceTree = "<group>"; };
 		CF0F3D2076DD419B8128DD77 /* StoreKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D30F8B7303594906A0F0C726 /* SKProduct+LocalizedPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SKProduct+LocalizedPrice.m"; path = "cc.fovea.cordova.purchase/SKProduct+LocalizedPrice.m"; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
@@ -225,6 +227,8 @@
 				DEAC12657A7849679BDBBBB2 /* CDVViewController+SplashScreen.m */,
 				5993F645C9E6463286D2EF88 /* CDVSplashScreen.h */,
 				382B3F1BC40C408A88D52A33 /* CDVViewController+SplashScreen.h */,
+				B10F4EFC224C40CDB7360365 /* CDVLogger.m */,
+				077D54E051C74538B59E62E5 /* CDVLogger.h */,
 			);
 			name = Plugins;
 			path = "Let's Build Bridges/Plugins";
@@ -413,6 +417,7 @@
 				A716B07781734C28955D901D /* SKProduct+LocalizedPrice.m in Sources */,
 				B3A73B2ADAFE4E81B339EE18 /* CDVSplashScreen.m in Sources */,
 				B9D380DF65A5497BAE571217 /* CDVViewController+SplashScreen.m in Sources */,
+				AC4ACC46D0944FDFA1AAFB62 /* CDVLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
