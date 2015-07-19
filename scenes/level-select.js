@@ -73,12 +73,29 @@ var LevelSelectScene = function (options) {
                 if (completed[counter]) {
                     shape.color = Vertex.CORRECT_COLOR;
                 }
-                if (!levels[counter]) {
+                if (this.isLocked() && counter >= 15) {
                     shape.color = Vertex.INCORRECT_COLOR;
                 }
                 counter += 1;
             }
         }
+    }
+
+    if (this.isLocked()) {
+        this.unlockButton = new Arcadia.Button({
+            position: {
+                x: Arcadia.WIDTH / 2,
+                y: startY - 150
+            },
+            color: null,
+            border: '2px #fff',
+            text: 'unlock all puzzles',
+            font: '26px monospace',
+            action: function () {
+                Arcadia.changeScene(UnlockScene)
+            }
+        });
+        this.add(this.unlockButton);
     }
 
     this.previousButton = new Arcadia.Button({
@@ -134,7 +151,7 @@ var LevelSelectScene = function (options) {
     this.playButton = new Arcadia.Button({
         position: {
             x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT - 150
+            y: Arcadia.HEIGHT - 125
         },
         color: null,
         border: '2px #fff',
@@ -143,7 +160,12 @@ var LevelSelectScene = function (options) {
         font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            Arcadia.changeScene(Game, { level: self.selected });
+
+            if (self.isLocked() && self.selected >= 15) {
+                Arcadia.changeScene(UnlockScene);
+            } else {
+                Arcadia.changeScene(GameScene, { level: self.selected });
+            }
         }
     });
     this.add(this.playButton);
@@ -152,7 +174,7 @@ var LevelSelectScene = function (options) {
     // this.editButton = new Arcadia.Button({
     //     position: {
     //         x: Arcadia.WIDTH / 2,
-    //         y: Arcadia.HEIGHT - 100
+    //         y: Arcadia.HEIGHT - 75
     //     },
     //     color: null,
     //     border: '2px #fff',
@@ -286,4 +308,8 @@ LevelSelectScene.prototype.previousPage = function () {
             this.nextButton.alpha = 1;
         }
     }
+};
+
+LevelSelectScene.prototype.isLocked = function () {
+    return window.store !== undefined && localStorage.getBoolean('unlocked') === false;
 };

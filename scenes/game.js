@@ -415,10 +415,12 @@ GameScene.prototype.win = function () {
 
             var incompleteLevel = completed.indexOf(null);
 
-            if (incompleteLevel !== -1) {
-                Arcadia.changeScene(Game, { level: incompleteLevel });
+            if (incompleteLevel === -1) {
+                Arcadia.changeScene(CreditsScene);
+            } else if (self.isLocked() && incompleteLevel >= 15) {
+                Arcadia.changeScene(UnlockScene);
             } else {
-                Arcadia.changeScene(Credits);
+                Arcadia.changeScene(GameScene, { level: incompleteLevel });
             }
         }
     });
@@ -451,4 +453,8 @@ GameScene.prototype.win = function () {
             self.activate(quitButton);
         }
     }, delay);
+};
+
+GameScene.prototype.isLocked = function () {
+    return window.store !== undefined && localStorage.getBoolean('unlocked') === false;
 };

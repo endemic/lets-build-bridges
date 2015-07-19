@@ -4,10 +4,22 @@
 
 [x] Create/reference app icon (http://makeappicon.com/)
 [x] Add splash screen images
-[ ] Add programming for IAP (https://github.com/Fovea/cordova-plugin-purchase-demo/blob/master/www/js/index.js)
+[x] Add programming for IAP (https://github.com/Fovea/cordova-plugin-purchase-demo/blob/master/www/js/index.js)
+[ ] Test IAP on actual device
 [ ] Add screenshots for various devices
+[ ] Make index.html background purple
 [ ] Create a video preview
 [x] Create app in iTunesConnect
+[x] Add an "unlock" button to LevelSelect - takes you to the upsell scene
+[x] Upsell scene has "unlock", "restore", and "no, thanks" buttons
+[x] Levels 16-100 have a red background when the game isn't unlocked
+[x] Trying to play one will forward to the upsell scene
+[x] When normal puzzle is completed, make a check that the first 15 puzzles are
+    solved; if so, forward to upsell scene
+[x] What happens when user clicks "Next" but don't have any unsolved puzzles left?
+    Either because they only have 15 or have completed all 100?
+
+[ ] Disassociate Sona w/ Arcadia -- no need to have them munged together, user can just create global Sona instance to handle music/sound
 
 [x] Sometimes Shape#draw will die in Bridges, throwing an InvalidStateError.
 This seems to occur because the canvas cache of an object has a
