@@ -41,6 +41,7 @@
 	<script src="scenes/level-select.js"></script>
 	<script src="scenes/editor.js"></script>
 	<script src="scenes/credits.js"></script>
+	<script src="scenes/unlock.js"></script>
 
 	<!-- Objects -->
 	<script src="objects/vertex.js"></script>
@@ -51,7 +52,7 @@
 			var game = new Arcadia.Game({
 				width: 375,
 				height: 667,
-				scene: Game,
+				scene: GameScene,
 				scaleToFit: true,
 				sounds: [
 					{ url: 'assets/sounds/button.mp3', id: 'button' },
@@ -60,6 +61,8 @@
 					{ url: 'assets/sounds/invalid.mp3', id: 'invalid' }
 				]
 			});
+
+			UnlockScene.initializeStore();
 		};
 	</script>
 </head>
