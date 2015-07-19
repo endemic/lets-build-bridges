@@ -1,7 +1,7 @@
 /*jslint sloppy: true, plusplus: true */
 /*globals Arcadia */
 
-var Editor = function (options) {
+var EditorScene = function (options) {
     Arcadia.Scene.apply(this, arguments);
     if (options === undefined) {
         options = {};
@@ -63,7 +63,7 @@ var Editor = function (options) {
         font: '26px monospace',
         action: function () {
             Arcadia.playSfx('button');
-            Arcadia.changeScene(LevelSelect, { selected: self.level });
+            Arcadia.changeScene(LevelSelectScene, { selected: self.level });
         }
     });
     this.backButton.position = {
@@ -88,9 +88,9 @@ var Editor = function (options) {
     this.add(this.interactiveArea);
 };
 
-Editor.prototype = new Arcadia.Scene();
+EditorScene.prototype = new Arcadia.Scene();
 
-Editor.prototype.save = function () {
+EditorScene.prototype.save = function () {
     var data,
         levels;
 
@@ -119,7 +119,7 @@ Editor.prototype.save = function () {
     localStorage.setObject('levels', levels);
 };
 
-Editor.prototype.load = function () {
+EditorScene.prototype.load = function () {
     var levels,
         vertexData,
         self = this;
@@ -186,7 +186,7 @@ Editor.prototype.load = function () {
     });
 };
 
-Editor.prototype.onPointStart = function (points) {
+EditorScene.prototype.onPointStart = function (points) {
     var i, vertex;
 
     // Show the "cursor" object; move it to the mouse/touch point
@@ -222,7 +222,7 @@ Editor.prototype.onPointStart = function (points) {
     }
 };
 
-Editor.prototype.onPointMove = function (points) {
+EditorScene.prototype.onPointMove = function (points) {
     this.cursor.position = {
         x: points[0].x,
         y: points[0].y
@@ -245,7 +245,7 @@ Editor.prototype.onPointMove = function (points) {
     }
 };
 
-Editor.prototype.onPointEnd = function (points) {
+EditorScene.prototype.onPointEnd = function (points) {
     var collision,
         edge,
         endVertex,
@@ -416,7 +416,7 @@ Editor.prototype.onPointEnd = function (points) {
 
 // https://en.wikipedia.org/wiki/Depth-first_search
 // Need each vertex to store a list of its connected edges
-Editor.prototype.search = function (vertex, listOfTraversedVertices) {
+EditorScene.prototype.search = function (vertex, listOfTraversedVertices) {
     var self = this;
 
     if (listOfTraversedVertices.indexOf(vertex.id) !== -1) {
@@ -430,7 +430,7 @@ Editor.prototype.search = function (vertex, listOfTraversedVertices) {
     });
 };
 
-Editor.prototype.checkCompleteness = function () {
+EditorScene.prototype.checkCompleteness = function () {
     var complete,
         foundVertices;
 

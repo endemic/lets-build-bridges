@@ -1,7 +1,7 @@
 /*jslint sloppy: true, plusplus: true */
-/*globals window, Arcadia, LevelSelect, Credits, localStorage, LEVELS, Vertex, Edge */
+/*globals window, Arcadia, LevelSelectScene, CreditsScene, localStorage, LEVELS, Vertex, Edge */
 
-var Game = function (options) {
+var GameScene = function (options) {
     Arcadia.Scene.apply(this, arguments);
     if (options === undefined) {
         options = {};
@@ -105,7 +105,7 @@ var Game = function (options) {
             font: '26px monospace',
             action: function () {
                 Arcadia.playSfx('button');
-                Arcadia.changeScene(LevelSelect, { selected: self.level });
+                Arcadia.changeScene(LevelSelectScene, { selected: self.level });
             }
         });
         this.backButton.position = {
@@ -116,15 +116,15 @@ var Game = function (options) {
     }
 };
 
-Game.prototype = new Arcadia.Scene();
+GameScene.prototype = new Arcadia.Scene();
 
-Game.prototype.load = function () {
+GameScene.prototype.load = function () {
     var levels = localStorage.getObject('levels') || LEVELS,
         data,
         self = this;
 
     if (levels[this.level] === undefined || levels[this.level] === null) {
-        Arcadia.changeScene(LevelSelect, { selected: self.level });
+        Arcadia.changeScene(LevelSelectScene, { selected: self.level });
         alert('No level data for #' + (this.level + 1));
     }
 
@@ -143,7 +143,7 @@ Game.prototype.load = function () {
     });
 };
 
-Game.prototype.onPointStart = function (points) {
+GameScene.prototype.onPointStart = function (points) {
     if (this.gameOver) {
         return;
     }
@@ -181,7 +181,7 @@ Game.prototype.onPointStart = function (points) {
     }
 };
 
-Game.prototype.onPointMove = function (points) {
+GameScene.prototype.onPointMove = function (points) {
     if (this.gameOver) {
         return;
     }
@@ -204,7 +204,7 @@ Game.prototype.onPointMove = function (points) {
     }
 };
 
-Game.prototype.onPointEnd = function (points) {
+GameScene.prototype.onPointEnd = function (points) {
     if (this.gameOver) {
         return;
     }
@@ -328,7 +328,7 @@ Game.prototype.onPointEnd = function (points) {
 
 // https://en.wikipedia.org/wiki/Depth-first_search
 // Need each vertex to store a list of its connected edges
-Game.prototype.search = function (vertex, listOfTraversedVertices) {
+GameScene.prototype.search = function (vertex, listOfTraversedVertices) {
     var self = this;
 
     if (listOfTraversedVertices.indexOf(vertex.id) !== -1) {
@@ -342,7 +342,7 @@ Game.prototype.search = function (vertex, listOfTraversedVertices) {
     });
 };
 
-Game.prototype.checkCompleteness = function () {
+GameScene.prototype.checkCompleteness = function () {
     var complete,
         foundVertices;
 
@@ -370,7 +370,7 @@ Game.prototype.checkCompleteness = function () {
 };
 
 // Show a "u won, next level?" sort of message
-Game.prototype.win = function () {
+GameScene.prototype.win = function () {
     var nextButton,
         quitButton,
         completed,
@@ -438,7 +438,7 @@ Game.prototype.win = function () {
             font: '26px monospace',
             action: function () {
                 Arcadia.playSfx('button');
-                Arcadia.changeScene(LevelSelect, { selected: self.level });
+                Arcadia.changeScene(LevelSelectScene, { selected: self.level });
             }
         });
         this.add(quitButton);

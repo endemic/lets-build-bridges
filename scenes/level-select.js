@@ -1,7 +1,7 @@
 /*jslint sloppy: true, plusplus: true */
-/*globals Arcadia, Game, Editor, Vertex, LEVELS, localStorage, window */
+/*globals Arcadia, GameScene, EditorScene, Vertex, LEVELS, localStorage, window */
 
-var LevelSelect = function (options) {
+var LevelSelectScene = function (options) {
     Arcadia.Scene.apply(this, arguments);
 
     if (options === undefined) {
@@ -161,7 +161,7 @@ var LevelSelect = function (options) {
     //     font: '26px monospace',
     //     action: function () {
     //         Arcadia.playSfx('button');
-    //         Arcadia.changeScene(Editor, { level: self.selected });
+    //         Arcadia.changeScene(EditorScene, { level: self.selected });
     //     }
     // });
     // this.add(this.editButton);
@@ -178,9 +178,9 @@ var LevelSelect = function (options) {
     }
 };
 
-LevelSelect.prototype = new Arcadia.Scene();
+LevelSelectScene.prototype = new Arcadia.Scene();
 
-LevelSelect.prototype.onPointStart = function (points) {
+LevelSelectScene.prototype.onPointStart = function (points) {
     // Move the "cursor" object to the mouse/touch point
     this.cursor.position = {
         x: points[0].x,
@@ -188,14 +188,14 @@ LevelSelect.prototype.onPointStart = function (points) {
     };
 };
 
-LevelSelect.prototype.onPointMove = function (points) {
+LevelSelectScene.prototype.onPointMove = function (points) {
     this.cursor.position = {
         x: points[0].x,
         y: points[0].y
     };
 };
 
-LevelSelect.prototype.onPointEnd = function () {
+LevelSelectScene.prototype.onPointEnd = function () {
     var i = this.levels.length,
         level;
 
@@ -216,7 +216,7 @@ LevelSelect.prototype.onPointEnd = function () {
     }
 };
 
-LevelSelect.prototype.nextPage = function () {
+LevelSelectScene.prototype.nextPage = function () {
     var offset = -Arcadia.WIDTH,
         self = this;
 
@@ -252,7 +252,7 @@ LevelSelect.prototype.nextPage = function () {
     }
 };
 
-LevelSelect.prototype.previousPage = function () {
+LevelSelectScene.prototype.previousPage = function () {
     var offset = Arcadia.WIDTH,
         self = this;
 

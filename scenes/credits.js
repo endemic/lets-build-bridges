@@ -1,6 +1,6 @@
-/*globals Arcadia, LevelSelect, LEVELS, localStorage */
+/*globals Arcadia, LevelSelectScene, LEVELS, localStorage */
 
-var Credits = function () {
+var CreditsScene = function () {
     'use strict';
 
     Arcadia.Scene.apply(this, arguments);
@@ -45,10 +45,10 @@ var Credits = function () {
             // Clear out saved level data here! start over like a champ
             localStorage.setObject('completed', new Array(LEVELS.length));
             Arcadia.playSfx('button');
-            Arcadia.changeScene(LevelSelect);
+            Arcadia.changeScene(LevelSelectScene);
         }
     });
     this.add(button);
 };
 
-Credits.prototype = new Arcadia.Scene();
+CreditsScene.prototype = new Arcadia.Scene();
