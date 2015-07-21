@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ganbarugames.bridges" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ganbarugames.bridges" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Let's Build Bridges</name>
     <description>
         Japanese logic puzzles.
@@ -66,8 +66,13 @@
 
     <!-- Splashscreen plugin -->
     <!-- https://github.com/apache/cordova-plugin-splashscreen -->
-    <!-- <preference name="SplashScreen" value="foo" />
-    <preference name="SplashScreenDelay" value="10000" />
+    <!-- These config options don't produce a noticeable change -->
+    <preference name="SplashScreenDelay" value="2000" />
+    <preference name="FadeSplashScreenDuration" value="2"/>
+    <preference name="ShowSplashScreenSpinner" value="false"/>
+
+    <!-- Android only? -->
+    <!-- <preference name="SplashScreen" value="resources/ios/Default@2x~iphone.png" />
     <preference name="SplashMaintainAspectRatio" value="true" /> -->
 
 </widget>
