@@ -1,4 +1,4 @@
-/*globals Arcadia, LevelSelectScene, LEVELS, localStorage */
+/*globals Arcadia, LevelSelectScene, CreditsScene, localStorage, store, window */
 
 var UnlockScene = function () {
     'use strict';
@@ -40,6 +40,7 @@ var UnlockScene = function () {
         text: 'Yes, please',
         font: '20px monospace',
         action: function () {
+            Arcadia.playSfx('button');
             window.store.order(UnlockScene.PRODUCT_ID);
         }
     });
@@ -56,6 +57,7 @@ var UnlockScene = function () {
         text: 'No, thanks',
         font: '20px monospace',
         action: function () {
+            Arcadia.playSfx('button');
             Arcadia.changeScene(CreditsScene);
         }
     });
@@ -72,6 +74,7 @@ var UnlockScene = function () {
         text: 'Restore purchase',
         font: '20px monospace',
         action: function () {
+            Arcadia.playSfx('button');
             window.store.order(UnlockScene.PRODUCT_ID);
         }
     });
@@ -101,15 +104,15 @@ UnlockScene.initializeStore = function () {
 
 
     store.when('Unlock all puzzles').updated(function (p) {
-        // p = {id, price, loaded, valid, canPurchase }
+        // p = { id, price, loaded, valid, canPurchase }
         window.PRODUCT_DATA = p;
     });
 
     // When purchase of the full version is approved,
     // show some logs and finish the transaction.
     store.when('Unlock all puzzles').approved(function (order) {
-        console.log('You just unlocked the FULL VERSION!');
-        
+        // console.log('Unlock all puzzles approved');
+
         localStorage.setBoolean('unlocked', true);
         order.finish();
 
@@ -117,8 +120,8 @@ UnlockScene.initializeStore = function () {
     });
 
     // When every goes as expected, it's time to celebrate!
-    store.ready(function() {
-        console.log("\\o/ STORE READY \\o/");
+    store.ready(function () {
+        console.log("*** STORE READY ***");
     });
 
     // After we've done our setup, we tell the store to do
