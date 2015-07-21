@@ -121,3 +121,24 @@ counter.
 How to check for completion? I guess technically it's a graph, so could iterate
 through all the placed bridges and ensure that the ID of each island was
 referenced at least once.
+
+# Video script
+
+Hi, thanks for checking out Let's Build Bridges.
+
+It's a logic puzzle game where you draw bridges to connect islands.
+
+I'm going to quickly show you how to solve one of the puzzles.
+
+The goal is to draw bridges to connect each island.
+
+The number on each island represents the number of bridges that
+can connect to it.
+
+If you make a mistake, just tap the bridge to erase.
+
+Once all the bridges are connected, the puzzle is complete!
+
+
+
+

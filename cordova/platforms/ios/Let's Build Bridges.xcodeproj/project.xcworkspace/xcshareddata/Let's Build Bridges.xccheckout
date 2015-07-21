@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>C4FE81F9-7396-4028-A476-F8167A7CD425</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>Let's Build Bridges</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>53DA42F7B82C07284DC692585095DD38F525536D</key>
 		<string>https://github.com/endemic/lets-build-bridges.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>cordova/platforms/ios/Let's Build Bridges.xcodeproj/project.xcworkspace</string>
+	<string>cordova/platforms/ios/Let's Build Bridges.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>53DA42F7B82C07284DC692585095DD38F525536D</key>
