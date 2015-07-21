@@ -5,10 +5,23 @@
 [x] Create/reference app icon (http://makeappicon.com/)
 [x] Add splash screen images
 [x] Add programming for IAP (https://github.com/Fovea/cordova-plugin-purchase-demo/blob/master/www/js/index.js)
-[ ] Test IAP on actual device
-[ ] Add screenshots for various devices
-[ ] Make index.html background purple
+[x] Test IAP on actual device
+[ ] Add "win" jingle
+[x] Add code to show/hide splash screen (https://github.com/apache/cordova-plugin-splashscreen)
+[x] Add screenshots for various devices
+  [x] iPhone 4S
+  [x] iPhone 5
+  [x] iPhone 6
+  [x] iPhone 6+
+  [x] iPad (retina)
+[x] Make index.html background purple
+[x] Add SFX to button presses for IAP scene
 [ ] Create a video preview
+  [ ] iPhone 5
+  [ ] iPhone 6
+  [ ] iPhone 6+
+  [ ] iPad (retina)
+[ ] Write script for demo video
 [x] Create app in iTunesConnect
 [x] Add an "unlock" button to LevelSelect - takes you to the upsell scene
 [x] Upsell scene has "unlock", "restore", and "no, thanks" buttons
@@ -77,7 +90,7 @@ between scenes
 [x] Determine why vertices that are very close together draw edges 90deg off
 [x] Make minimum distance between nodes in editor larger
 [ ] Maybe some music?
-[ ] Create ~100 puzzles
+[x] Create ~100 puzzles
 [ ] Add "interactive area" hitmap for puzzle
 [x] Turn off drawing line when puzzle is complete
 [x] Create Cordova project
