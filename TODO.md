@@ -1,12 +1,26 @@
 # TODO
 
-# Cordova project
+[ ] Auto save/restore puzzle progress
+[ ] Randomly cycle background colors
+[ ] Only draw "cursor" object when first touch hits a node
+[ ] Display a "progress" bar when puzzle is solved: [==|-----------]
+[ ] Add "win" jingle
+[ ] Create a video preview
+  [ ] iPhone 5
+  [ ] iPhone 6
+  [ ] iPhone 6+
+  [ ] iPad (retina)
+[ ] Write script for demo video
+[ ] Disassociate Sona w/ Arcadia -- no need to have them munged together, user can just create global Sona instance to handle music/sound
+[ ] Allow users to share levels?
+[ ] Combine editor/game?
+[ ] Maybe some music?
+[ ] Add "interactive area" hitmap for puzzle
 
 [x] Create/reference app icon (http://makeappicon.com/)
 [x] Add splash screen images
 [x] Add programming for IAP (https://github.com/Fovea/cordova-plugin-purchase-demo/blob/master/www/js/index.js)
 [x] Test IAP on actual device
-[ ] Add "win" jingle
 [x] Add code to show/hide splash screen (https://github.com/apache/cordova-plugin-splashscreen)
 [x] Add screenshots for various devices
   [x] iPhone 4S
@@ -16,12 +30,6 @@
   [x] iPad (retina)
 [x] Make index.html background purple
 [x] Add SFX to button presses for IAP scene
-[ ] Create a video preview
-  [ ] iPhone 5
-  [ ] iPhone 6
-  [ ] iPhone 6+
-  [ ] iPad (retina)
-[ ] Write script for demo video
 [x] Create app in iTunesConnect
 [x] Add an "unlock" button to LevelSelect - takes you to the upsell scene
 [x] Upsell scene has "unlock", "restore", and "no, thanks" buttons
@@ -31,18 +39,13 @@
     solved; if so, forward to upsell scene
 [x] What happens when user clicks "Next" but don't have any unsolved puzzles left?
     Either because they only have 15 or have completed all 100?
-
-[ ] Disassociate Sona w/ Arcadia -- no need to have them munged together, user can just create global Sona instance to handle music/sound
-
 [x] Sometimes Shape#draw will die in Bridges, throwing an InvalidStateError.
 This seems to occur because the canvas cache of an object has a
 width or height of 0. This is probably happening due to the thin "helper"
 line that is being drawn. It might be possible to guard against this in
 Arcadia, enforcing a min canvas cache size of 1x1.
-
 [x] Button event handlers don't seem to get cleaned up properly when changing
 between scenes
-
 [x] Draw bridges correctly; i.e. one line per bridge
 [x] Allow user to draw a second bridge between islands
 [x] Program a "win" condition
@@ -85,13 +88,9 @@ between scenes
 [x] Check for collision of a vertex in between start/end vertices
 [x] Make vertices larger/easier for touch
 [x] Create "credits" screen
-[ ] Allow users to share levels?
-[ ] Combine editor/game?
 [x] Determine why vertices that are very close together draw edges 90deg off
 [x] Make minimum distance between nodes in editor larger
-[ ] Maybe some music?
 [x] Create ~100 puzzles
-[ ] Add "interactive area" hitmap for puzzle
 [x] Turn off drawing line when puzzle is complete
 [x] Create Cordova project
 
