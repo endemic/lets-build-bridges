@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename');
 
 gulp.task('default', function () {
-    console.log('stuff');
+    console.log('Gulp tasks: `concat`, `compress`, `cordova`, `web`');
 });
 
 gulp.task('concat', function () {
@@ -29,11 +29,31 @@ gulp.task('compress', function () {
 
 gulp.task('cordova', ['concat', 'compress'], function () {
     gulp.src(['dist/lets-build-bridges.min.js'], { base: 'dist' })
-        .pipe(gulp.dest('cordova/www/js'));
+        .pipe(gulp.dest('cordova/www/javascript'));
 
     gulp.src(['node_modules/arcadia/dist/arcadia.js'], { base: 'node_modules/arcadia/dist' })
-        .pipe(gulp.dest('cordova/www/js'));
+        .pipe(gulp.dest('cordova/www/javascript'));
+
+    gulp.src(['node_modules/sona/dist/sona.js'], { base: 'node_modules/sona/dist' })
+        .pipe(gulp.dest('cordova/www/javascript'));
 
     gulp.src(['assets/**'])
         .pipe(gulp.dest('cordova/www/assets'));
+});
+
+gulp.task('web', ['concat', 'compress'], function () {
+    gulp.src(['dist/lets-build-bridges.min.js'], { base: 'dist' })
+        .pipe(gulp.dest('../../websites/ganbarugames.com/bridges/javascript'));
+
+    gulp.src(['node_modules/arcadia/dist/arcadia.js'], { base: 'node_modules/arcadia/dist' })
+        .pipe(gulp.dest('../../websites/ganbarugames.com/bridges/javascript'));
+
+    gulp.src(['node_modules/sona/dist/sona.js'], { base: 'node_modules/sona/dist' })
+        .pipe(gulp.dest('../../websites/ganbarugames.com/bridges/javascript'));
+
+    gulp.src(['assets/**'])
+        .pipe(gulp.dest('../../websites/ganbarugames.com/bridges/assets'));
+
+    gulp.src(['dist/index.html'], { base: 'dist' })
+        .pipe(gulp.dest('../../websites/ganbarugames.com/bridges'));
 });
