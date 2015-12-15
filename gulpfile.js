@@ -56,4 +56,11 @@ gulp.task('web', ['concat', 'compress'], function () {
 
     gulp.src(['dist/index.html'], { base: 'dist' })
         .pipe(gulp.dest('../../websites/ganbarugames.com/bridges'));
+
+    // Copy appcache/webapp manifests
+    // gulp.src(['dist/manifest.appcache'], { base: 'dist' })
+    //     .pipe(gulp.dest('../../websites/ganbarugames.com/bridges'));
+
+    gulp.src(['manifest.json'])
+        .pipe(gulp.dest('../../websites/ganbarugames.com/bridges'));
 });
