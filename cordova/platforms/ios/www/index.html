@@ -30,31 +30,32 @@
 	<script type="text/javascript" src="cordova.js"></script>
 
 	<!-- Framework -->
-	<script src="js/arcadia.js"></script>
+	<script src="javascript/arcadia.js"></script>
+	<script src="javascript/sona.js"></script>
 
 	<!-- Game -->
-	<script src="js/lets-build-bridges.min.js"></script>
+	<script src="javascript/lets-build-bridges.min.js"></script>
 
 	<script type="text/javascript">
-		document.addEventListener('deviceready', initialize, false);
-		// window.onload = initialize;
+    document.addEventListener('deviceready', function (_) {
+      window.sona = new Sona([
+        { url: 'assets/sounds/button.mp3', id: 'button' },
+        { url: 'assets/sounds/fill.mp3', id: 'build' },
+        { url: 'assets/sounds/mark.mp3', id: 'erase' },
+        { url: 'assets/sounds/invalid.mp3', id: 'invalid' }
+      ]);
 
-		function initialize() {
-			var game = new Arcadia.Game({
-				width: 375,
-				height: 667,
-				scene: GameScene,
-				scaleToFit: true,
-				sounds: [
-					{ url: 'assets/sounds/button.mp3', id: 'button' },
-					{ url: 'assets/sounds/fill.mp3', id: 'build' },
-					{ url: 'assets/sounds/mark.mp3', id: 'erase' },
-					{ url: 'assets/sounds/invalid.mp3', id: 'invalid' }
-				]
-			});
+      window.sona.load(function () {
+        var game = new Arcadia.Game({
+          width: 375,
+          height: 667,
+          scene: GameScene,
+          scaleToFit: true,
+        });
 
-			UnlockScene.initializeStore();
-		}
+        UnlockScene.initializeStore();
+      });
+    }, false);
 	</script>
 </head>
 <body>
