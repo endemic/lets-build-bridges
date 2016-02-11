@@ -3,25 +3,15 @@
 
 var GameScene = function (options) {
     Arcadia.Scene.apply(this, arguments);
-    if (options === undefined) {
-        options = {};
-    }
 
-    var actionWord = (Arcadia.ENV.mobile ? 'Tap' : 'Click'),
+    options = options || {};
+
+    var actionWord = Arcadia.ENV.mobile ? 'Tap' : 'Click',
         buttonPadding = 5,
         self = this;
 
-    // Background color
-    this.color = 'purple';
-
-    // Object that tracks player's cursor/finger; used for collision detection 
-    this.cursor = new Arcadia.Shape({
-        size: { width: 8, height: 8 },
-        vertices: 0,
-        color: 'white'
-    });
-    this.add(this.cursor);
-    this.deactivate(this.cursor);
+    // Background/vertex color
+    Vertex.DEFAULT_COLOR = Arcadia.cycleBackground();
 
     // Data structure for the vertices/edges in the graph
     this.vertices = [];
@@ -38,6 +28,14 @@ var GameScene = function (options) {
     // Load the puzzle data
     this.load();
 
+    // Object that tracks player's cursor/finger; used for collision detection
+    this.cursor = new Arcadia.Shape({
+        size: { width: 8, height: 8 },
+        vertices: 0
+    });
+    this.add(this.cursor);
+    this.deactivate(this.cursor);
+
     // Line that is shown while dragging from one vertex to another
     this.activeEdge = new Arcadia.Shape({
         size: { width: 2, height: 2 }
@@ -49,8 +47,8 @@ var GameScene = function (options) {
         // Create title/help text
         this.titleLabel = new Arcadia.Label({
             position: {
-                x: Arcadia.WIDTH / 2,
-                y: Arcadia.HEIGHT / 4
+                x: 0,
+                y: -Arcadia.HEIGHT / 4
             },
             color: '#fff',
             font: '48px monospace',
@@ -60,8 +58,8 @@ var GameScene = function (options) {
 
         this.helpLabel = new Arcadia.Label({
             position: {
-                x: Arcadia.WIDTH / 2,
-                y: Arcadia.HEIGHT - 100
+                x: 0,
+                y: Arcadia.HEIGHT / 3
             },
             color: '#fff',
             font: '20 monospace',
@@ -77,7 +75,7 @@ var GameScene = function (options) {
             text: 'reset',
             font: '26px monospace',
             action: function () {
-                Arcadia.playSfx('button');
+                sona.play('button');
                 // Clear out all edges
                 self.vertices.forEach(function (vertex) {
                     vertex.edges = [];
@@ -91,8 +89,8 @@ var GameScene = function (options) {
             }
         });
         this.resetButton.position = {
-            x: Arcadia.WIDTH - this.resetButton.size.width / 2 - buttonPadding,
-            y: this.resetButton.size.height / 2 + buttonPadding
+            x: this.size.width / 2 - this.resetButton.size.width / 2 - buttonPadding,
+            y: -this.size.height / 2 + this.resetButton.size.height / 2 + buttonPadding
         };
         this.add(this.resetButton);
 
@@ -104,13 +102,13 @@ var GameScene = function (options) {
             text: 'quit',
             font: '26px monospace',
             action: function () {
-                Arcadia.playSfx('button');
+                sona.play('button');
                 Arcadia.changeScene(LevelSelectScene, { selected: self.level });
             }
         });
         this.backButton.position = {
-            x: this.backButton.size.width / 2 + buttonPadding,
-            y: this.backButton.size.height / 2 + buttonPadding
+            x: -this.size.width / 2 + this.backButton.size.width / 2 + buttonPadding,
+            y: -this.size.height / 2 + this.backButton.size.height / 2 + buttonPadding
         };
         this.add(this.backButton);
     }
@@ -144,6 +142,8 @@ GameScene.prototype.load = function () {
 };
 
 GameScene.prototype.onPointStart = function (points) {
+    Arcadia.Scene.prototype.onPointStart.call(this, points); // "super()"
+
     if (this.gameOver) {
         return;
     }
@@ -153,7 +153,6 @@ GameScene.prototype.onPointStart = function (points) {
         vertex;
 
     // Show the "cursor" object; move it to the mouse/touch point
-    this.activate(this.cursor);
     this.cursor.position = {
         x: points[0].x,
         y: points[0].y
@@ -168,7 +167,8 @@ GameScene.prototype.onPointStart = function (points) {
             this.startVertex = vertex;
             distance = Math.sqrt(Math.pow(this.cursor.position.x - this.startVertex.position.x, 2) + Math.pow(this.cursor.position.y - this.startVertex.position.y, 2));
 
-            // If so, start drawing a line
+            // If so, start drawing cursor/line
+            this.activate(this.cursor);
             this.activate(this.activeEdge);
             this.activeEdge.size = { width: 2, height: distance };
             this.activeEdge.rotation = Math.atan2(this.cursor.position.y - this.startVertex.position.y, this.cursor.position.x - this.startVertex.position.x) + Math.PI / 2;
@@ -182,6 +182,8 @@ GameScene.prototype.onPointStart = function (points) {
 };
 
 GameScene.prototype.onPointMove = function (points) {
+    Arcadia.Scene.prototype.onPointMove.call(this, points); // "super()"
+
     if (this.gameOver) {
         return;
     }
@@ -205,6 +207,8 @@ GameScene.prototype.onPointMove = function (points) {
 };
 
 GameScene.prototype.onPointEnd = function (points) {
+    Arcadia.Scene.prototype.onPointEnd.call(this, points); // "super()"
+
     if (this.gameOver) {
         return;
     }
@@ -283,23 +287,23 @@ GameScene.prototype.onPointEnd = function (points) {
                         this.edges.push(edge);
                         this.add(edge);
 
-                        Arcadia.playSfx('build');
+                        sona.play('build');
                     // Increment existing edge
                     } else if (vertexIds.indexOf(this.startVertex.id) !== -1 &&  vertexIds.indexOf(endVertex.id) !== -1) {
                         if (collision.increment()) {
                             collision.vertices[0].updateColor();
                             collision.vertices[1].updateColor();
-                            Arcadia.playSfx('build');
+                            sona.play('build');
                         } else {
-                            Arcadia.playSfx('invalid');
+                            sona.play('invalid');
                         }
                     // Invalid move - tried to cross an edge or vertex
                     } else {
-                        Arcadia.playSfx('invalid');
+                        sona.play('invalid');
                     }
                 } else {
                     // Diagonal edges aren't allowed
-                    Arcadia.playSfx('invalid');
+                    sona.play('invalid');
                 }
             }
         }
@@ -316,7 +320,7 @@ GameScene.prototype.onPointEnd = function (points) {
                 edge.vertices[1].removeEdge(edge);
                 this.remove(edge);
                 this.edges.splice(i, 1);
-                Arcadia.playSfx('erase');
+                sona.play('erase');
             }
         }
     }
@@ -372,8 +376,10 @@ GameScene.prototype.checkCompleteness = function () {
 // Show a "u won, next level?" sort of message
 GameScene.prototype.win = function () {
     var nextButton,
-        quitButton,
+        progressBar,
+        progressAscii,
         completed,
+        percentComplete,
         delay = 2000,
         self = this;
 
@@ -400,24 +406,35 @@ GameScene.prototype.win = function () {
     completed[this.level] = true;
     localStorage.setObject('completed', completed);
 
+    percentComplete = completed.filter(function (entry) {
+        return entry === true;
+    }).length / completed.length;
+
+    progressAscii = '[';
+    while (progressAscii.length <= 10) {
+        if (progressAscii.length <= percentComplete * 10) {
+            progressAscii += '=';
+        } else {
+            progressAscii += '-';
+        }
+    }
+    progressAscii += ']';
+
     nextButton = new Arcadia.Button({
-        position: {
-            x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT / 2 - 25
-        },
+        position: { x: 0, y: -40 },
+        padding: 5,
         color: null,
         border: '2px #fff',
-        padding: 15,
         text: 'next',
         font: '26px monospace',
         action: function () {
-            Arcadia.playSfx('button');
+            sona.play('button');
 
             var incompleteLevel = completed.indexOf(null);
 
             if (incompleteLevel === -1) {
                 Arcadia.changeScene(CreditsScene);
-            } else if (self.isLocked() && incompleteLevel >= 15) {
+            } else if (Arcadia.isLocked() && incompleteLevel >= 15) {
                 Arcadia.changeScene(UnlockScene);
             } else {
                 Arcadia.changeScene(GameScene, { level: incompleteLevel });
@@ -427,34 +444,17 @@ GameScene.prototype.win = function () {
     this.add(nextButton);
     this.deactivate(nextButton);
 
-    if (!this.isTitle) {
-        quitButton = new Arcadia.Button({
-            position: {
-                x: Arcadia.WIDTH / 2,
-                y: Arcadia.HEIGHT / 2 + 25
-            },
-            color: null,
-            border: '2px #fff',
-            padding: 15,
-            text: 'quit',
-            font: '26px monospace',
-            action: function () {
-                Arcadia.playSfx('button');
-                Arcadia.changeScene(LevelSelectScene, { selected: self.level });
-            }
-        });
-        this.add(quitButton);
-        this.deactivate(quitButton);
-    }
+    progressBar = new Arcadia.Label({
+        position: { x: 0, y: 40 },
+        color: 'white',
+        font: '26px monospace',
+        text: 'progress\n' + progressAscii
+    });
+    this.add(progressBar);
+    this.deactivate(progressBar);
 
     window.setTimeout(function () {
         self.activate(nextButton);
-        if (!self.isTitle) {
-            self.activate(quitButton);
-        }
+        self.activate(progressBar);
     }, delay);
-};
-
-GameScene.prototype.isLocked = function () {
-    return window.store !== undefined && localStorage.getBoolean('unlocked') === false;
 };

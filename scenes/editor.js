@@ -62,7 +62,7 @@ var EditorScene = function (options) {
         text: 'quit',
         font: '26px monospace',
         action: function () {
-            Arcadia.playSfx('button');
+            sona.play('button');
             Arcadia.changeScene(LevelSelectScene, { selected: self.level });
         }
     });
@@ -94,7 +94,7 @@ EditorScene.prototype.save = function () {
     var data,
         levels;
 
-    Arcadia.playSfx('button');
+    sona.play('button');
 
     data = {
         vertices: this.vertices.map(function (vertex) {
@@ -323,25 +323,25 @@ EditorScene.prototype.onPointEnd = function (points) {
                         this.edges.push(edge);
                         this.add(edge);
 
-                        Arcadia.playSfx('build');
+                        sona.play('build');
                     // Increment existing edge
                     } else if (vertexIds.indexOf(this.startVertex.id) !== -1 &&  vertexIds.indexOf(endVertex.id) !== -1) {
                         if (collision.increment()) {
                             collision.vertices[0].increment();
                             collision.vertices[1].increment();
-                            Arcadia.playSfx('build');
+                            sona.play('build');
                         } else {
-                            Arcadia.playSfx('invalid');
+                            sona.play('invalid');
                         }
                     // Invalid move
                     // TODO is this condition necessary?
                     } else {
-                        Arcadia.playSfx('invalid');
+                        sona.play('invalid');
                         throw new Error('strange condition');
                     }
                 } else {
                     // Diagonal edges aren't allowed
-                    Arcadia.playSfx('invalid');
+                    sona.play('invalid');
                 }
 
             // If touching the same vertex, and it's empty, remove it
@@ -372,7 +372,7 @@ EditorScene.prototype.onPointEnd = function (points) {
                 this.remove(edge);
                 this.edges.splice(i, 1);
 
-                Arcadia.playSfx('erase');
+                sona.play('erase');
                 removedEdge = true;
             }
         }

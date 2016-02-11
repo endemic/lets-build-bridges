@@ -3,14 +3,14 @@
 var UnlockScene = function () {
     'use strict';
 
-    Arcadia.Scene.apply(this, arguments);
-
     var noButton,
         restoreButton,
         yesButton,
         description;
 
-    this.color = 'purple';
+    Arcadia.Scene.apply(this, arguments);
+
+    Arcadia.cycleBackground();
 
     // Should never occur; for testing on desktop only
     if (window.PRODUCT_DATA === undefined) {
@@ -19,8 +19,8 @@ var UnlockScene = function () {
 
     description = new Arcadia.Label({
         position: {
-            x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT / 3
+            x: 0,
+            y: -100
         },
         font: '20px monospace',
         text: 'I hope you\'ve enjoyed\nbuilding bridges so far.\nWould you like to\nunlock 85 more puzzles\nfor only ' + window.PRODUCT_DATA.price + '?'
@@ -30,51 +30,42 @@ var UnlockScene = function () {
     /* Buttons */
 
     yesButton = new Arcadia.Button({
-        position: {
-            x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT - 250
-        },
+        position: { x: 0, y: 75 },
         color: null,
         border: '2px #fff',
-        padding: 15,
+        padding: 10,
         text: 'Yes, please',
         font: '20px monospace',
         action: function () {
-            Arcadia.playSfx('button');
+            sona.play('button');
             window.store.order(UnlockScene.PRODUCT_ID);
         }
     });
     this.add(yesButton);
 
     noButton = new Arcadia.Button({
-        position: {
-            x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT - 200
-        },
+        position: { x: 0, y: 150 },
         color: null,
         border: '2px #fff',
-        padding: 15,
+        padding: 10,
         text: 'No, thanks',
         font: '20px monospace',
         action: function () {
-            Arcadia.playSfx('button');
+            sona.play('button');
             Arcadia.changeScene(CreditsScene);
         }
     });
     this.add(noButton);
 
     restoreButton = new Arcadia.Button({
-        position: {
-            x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT - 100
-        },
+        position: { x: 0, y: 225 },
         color: null,
         border: '2px #fff',
-        padding: 15,
+        padding: 10,
         text: 'Restore purchase',
         font: '20px monospace',
         action: function () {
-            Arcadia.playSfx('button');
+            sona.play('button');
             window.store.order(UnlockScene.PRODUCT_ID);
         }
     });

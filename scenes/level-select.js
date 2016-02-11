@@ -4,9 +4,7 @@
 var LevelSelectScene = function (options) {
     Arcadia.Scene.apply(this, arguments);
 
-    if (options === undefined) {
-        options = {};
-    }
+    options = options || {};
 
     // Puzzles hidden behind IAP wall will be red, normal will be purple,
     // completed will be green
@@ -17,8 +15,8 @@ var LevelSelectScene = function (options) {
         counter = 0,
         rows = 5,   // Show 25 levels per page
         columns = 5,
-        centerX = Arcadia.WIDTH / 2,
-        centerY = Arcadia.HEIGHT / 2,
+        centerX = 0,
+        centerY = 0,
         gridWidth = rows * spacing,
         gridHeight = columns * spacing,
         startX = centerX - gridWidth / 2 + spacing / 2,
@@ -28,10 +26,11 @@ var LevelSelectScene = function (options) {
         x,
         offset,
         shape,
-        self;
+        self = this;
 
-    self = this;
-    this.color = 'purple';
+    // Background/vertex color
+    Vertex.DEFAULT_COLOR = Arcadia.cycleBackground();
+
     this.levels = [];
     this.selected = null;
     completed = localStorage.getObject('completed') || Array(LEVELS.length);
@@ -40,8 +39,7 @@ var LevelSelectScene = function (options) {
     // Object that tracks player's cursor/finger; used for collision detection
     this.cursor = new Arcadia.Shape({
         size: { width: 8, height: 8 },
-        vertices: 0,
-        color: 'white'
+        vertices: 0
     });
     this.add(this.cursor);
     this.deactivate(this.cursor);
@@ -83,16 +81,14 @@ var LevelSelectScene = function (options) {
 
     if (this.isLocked()) {
         this.unlockButton = new Arcadia.Button({
-            position: {
-                x: Arcadia.WIDTH / 2,
-                y: startY - 150
-            },
+            position: { x: 0, y: startY - 150 },
             color: null,
             border: '2px #fff',
+            padding: 5,
             text: 'unlock all puzzles',
             font: '26px monospace',
             action: function () {
-                Arcadia.changeScene(UnlockScene)
+                Arcadia.changeScene(UnlockScene);
             }
         });
         this.add(this.unlockButton);
@@ -150,8 +146,8 @@ var LevelSelectScene = function (options) {
 
     this.playButton = new Arcadia.Button({
         position: {
-            x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT - 125
+            x: 0,
+            y: this.size.height / 2 - 125
         },
         color: null,
         border: '2px #fff',
@@ -159,7 +155,7 @@ var LevelSelectScene = function (options) {
         text: 'play',
         font: '26px monospace',
         action: function () {
-            Arcadia.playSfx('button');
+            sona.play('button');
 
             if (self.isLocked() && self.selected >= 15) {
                 Arcadia.changeScene(UnlockScene);
@@ -182,7 +178,7 @@ var LevelSelectScene = function (options) {
     //     text: 'edit',
     //     font: '26px monospace',
     //     action: function () {
-    //         Arcadia.playSfx('button');
+    //         sona.play('button');
     //         Arcadia.changeScene(EditorScene, { level: self.selected });
     //     }
     // });
@@ -203,6 +199,8 @@ var LevelSelectScene = function (options) {
 LevelSelectScene.prototype = new Arcadia.Scene();
 
 LevelSelectScene.prototype.onPointStart = function (points) {
+    Arcadia.Scene.prototype.onPointStart.call(this, points); // "super()"
+
     // Move the "cursor" object to the mouse/touch point
     this.cursor.position = {
         x: points[0].x,
@@ -211,13 +209,17 @@ LevelSelectScene.prototype.onPointStart = function (points) {
 };
 
 LevelSelectScene.prototype.onPointMove = function (points) {
+    Arcadia.Scene.prototype.onPointMove.call(this, points); // "super()"
+
     this.cursor.position = {
         x: points[0].x,
         y: points[0].y
     };
 };
 
-LevelSelectScene.prototype.onPointEnd = function () {
+LevelSelectScene.prototype.onPointEnd = function (points) {
+    Arcadia.Scene.prototype.onPointEnd.call(this, points); // "super()"
+
     var i = this.levels.length,
         level;
 
@@ -226,7 +228,7 @@ LevelSelectScene.prototype.onPointEnd = function () {
 
         if (this.cursor.collidesWith(level) && this.selected !== i) {
             level.highlight();
-            Arcadia.playSfx('button');
+            sona.play('button');
 
             if (this.selected !== null) {
                 this.levels[this.selected].lowlight();
@@ -243,7 +245,7 @@ LevelSelectScene.prototype.nextPage = function () {
         self = this;
 
     if (this.currentPage < this.pages.length - 1) {
-        Arcadia.playSfx('button');
+        sona.play('button');
         this.nextButton.disabled = true;
         this.nextButton.alpha = 0.5;
 
@@ -279,7 +281,7 @@ LevelSelectScene.prototype.previousPage = function () {
         self = this;
 
     if (this.currentPage > 0) {
-        Arcadia.playSfx('button');
+        sona.play('button');
         this.previousButton.disabled = true;
         this.previousButton.alpha = 0.5;
 

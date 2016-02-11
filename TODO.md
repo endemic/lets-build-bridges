@@ -1,9 +1,16 @@
 # TODO
 
+[x] Create new version in iTunes Connect
+[x] Update icon in Cordova project
+[ ] New screenshots
+
+[x] Add back "destroyAll" to Arcadia.Pool - used to remove button event listeners
+[x] Randomly cycle background colors
+[x] Only draw "cursor" object when first touch hits a node
+[x] Update level data to work with new version of Arcadia
+[x] Display a "progress" bar when puzzle is solved: [==|-----------]
 [ ] Auto save/restore puzzle progress
-[ ] Randomly cycle background colors
-[ ] Only draw "cursor" object when first touch hits a node
-[ ] Display a "progress" bar when puzzle is solved: [==|-----------]
+
 [ ] Add "win" jingle
 [ ] Create a video preview
   [ ] iPhone 5
@@ -11,11 +18,10 @@
   [ ] iPhone 6+
   [ ] iPad (retina)
 [ ] Write script for demo video
-[ ] Disassociate Sona w/ Arcadia -- no need to have them munged together, user can just create global Sona instance to handle music/sound
+[x] Disassociate Sona w/ Arcadia -- no need to have them munged together, user can just create global Sona instance to handle music/sound
 [ ] Allow users to share levels?
 [ ] Combine editor/game?
 [ ] Maybe some music?
-[ ] Add "interactive area" hitmap for puzzle
 
 [x] Create/reference app icon (http://makeappicon.com/)
 [x] Add splash screen images

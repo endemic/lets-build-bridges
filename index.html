@@ -19,8 +19,14 @@
 	<link href="assets/icons/114.png" sizes="114x114" rel="apple-touch-icon-precomposed">
 
 	<style type="text/css">
-    body { margin: 0; padding: 0; background: purple; }
-    #arcadia, #arcadia canvas {
+    body {
+      margin: 0;
+      padding: 0;
+      background: purple;
+      /*transition: background 1s;*/
+    }
+    #arcadia,
+    #arcadia canvas {
       cursor: pointer;
       -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     }
@@ -28,10 +34,12 @@
 
 	<!-- Engine -->
 	<script src="node_modules/arcadia/dist/arcadia.js"></script>
+	<script src="node_modules/sona/dist/sona.js"></script>
 
 	<!-- Polyfills, etc. -->
 	<script src="lib/polyfills.js"></script>
 	<script src="lib/storage-extensions.js"></script>
+	<script src="lib/arcadia-extensions.js"></script>
 
 	<!-- Levels -->
 	<script src="data/levels.js"></script>
@@ -47,24 +55,27 @@
 	<script src="objects/vertex.js"></script>
 	<script src="objects/edge.js"></script>
 
-	<script type="text/javascript">
-		window.onload = function () {
-			var game = new Arcadia.Game({
-				width: 375,
-				height: 667,
-				scene: GameScene,
-				scaleToFit: true,
-				sounds: [
-					{ url: 'assets/sounds/button.mp3', id: 'button' },
-					{ url: 'assets/sounds/fill.mp3', id: 'build' },
-					{ url: 'assets/sounds/mark.mp3', id: 'erase' },
-					{ url: 'assets/sounds/invalid.mp3', id: 'invalid' }
-				]
-			});
+  <script>
+    window.onload = function () {
+      window.sona = new Sona([
+        { url: 'assets/sounds/button.mp3', id: 'button' },
+        { url: 'assets/sounds/fill.mp3', id: 'build' },
+        { url: 'assets/sounds/mark.mp3', id: 'erase' },
+        { url: 'assets/sounds/invalid.mp3', id: 'invalid' }
+      ]);
 
-			UnlockScene.initializeStore();
-		};
-	</script>
+      window.sona.load(function () {
+        var game = new Arcadia.Game({
+          width: 375,
+          height: 667,
+          scene: GameScene,
+          scaleToFit: true,
+        });
+
+        UnlockScene.initializeStore();
+      });
+    };
+  </script>
 </head>
 <body>
 

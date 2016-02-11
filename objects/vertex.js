@@ -7,7 +7,7 @@ var Vertex = function (args) {
 
     this.size = { width: Vertex.SIZE, height: Vertex.SIZE };
     this.vertices = 0;
-    this.color = 'purple';
+    this.color = Vertex.DEFAULT_COLOR;
     this.border = '2px #fff';
     this.number = 0;
     this.edges = [];
