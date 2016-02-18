@@ -9,7 +9,7 @@ var CreditsScene = function () {
         button,
         description;
 
-    this.color = 'purple';
+    Arcadia.cycleBackground();
 
     title = new Arcadia.Label({
         position: { x: 0, y: -167 },

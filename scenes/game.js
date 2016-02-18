@@ -119,6 +119,7 @@ GameScene.prototype = new Arcadia.Scene();
 GameScene.prototype.load = function () {
     var levels = localStorage.getObject('levels') || LEVELS,
         data,
+        animationDuration = 2000,
         self = this;
 
     if (levels[this.level] === undefined || levels[this.level] === null) {
@@ -133,11 +134,17 @@ GameScene.prototype.load = function () {
         var v = new Vertex({
             position: data.position,
             number: data.number,
-            id: data.id
+            id: data.id,
+            scale: 0 // initially small, yo
         });
 
         self.vertices.push(v);
         self.add(v);
+    });
+
+    // Grow vertices
+    this.vertices.forEach(function (vertex) {
+        vertex.tween('scale', 1, animationDuration, 'elasticOut');
     });
 };
 
@@ -380,7 +387,7 @@ GameScene.prototype.win = function () {
         progressAscii,
         completed,
         percentComplete,
-        delay = 2000,
+        animationDuration = 2000,
         self = this;
 
     // Disable touch/mouse methods for drawing
@@ -393,7 +400,7 @@ GameScene.prototype.win = function () {
 
     // Shrink vertices
     this.vertices.forEach(function (vertex) {
-        vertex.tween('scale', 0, delay, 'elasticIn');
+        vertex.tween('scale', 0, animationDuration, 'elasticIn');
     });
 
     completed = localStorage.getObject('completed')
@@ -456,5 +463,5 @@ GameScene.prototype.win = function () {
     window.setTimeout(function () {
         self.activate(nextButton);
         self.activate(progressBar);
-    }, delay);
+    }, animationDuration);
 };

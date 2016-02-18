@@ -26,6 +26,7 @@ var LevelSelectScene = function (options) {
         x,
         offset,
         shape,
+        animationDuration = 2000,
         self = this;
 
     // Background/vertex color
@@ -63,7 +64,8 @@ var LevelSelectScene = function (options) {
                 }
                 shape = new Vertex({
                     number: (counter + 1),
-                    position: { x: x + offset, y: y }
+                    position: { x: x + offset, y: y },
+                    scale: page === this.currentPage ? 0 : 1 // make current page smaller
                 });
                 this.add(shape);
                 this.levels.push(shape);
@@ -78,6 +80,11 @@ var LevelSelectScene = function (options) {
             }
         }
     }
+
+    // Animate level icons into view
+    this.pages[this.currentPage].forEach(function (vertex) {
+        vertex.tween('scale', 1, animationDuration, 'elasticOut');
+    });
 
     if (this.isLocked()) {
         this.unlockButton = new Arcadia.Button({
