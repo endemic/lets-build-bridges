@@ -6,7 +6,8 @@ var UnlockScene = function () {
     var noButton,
         restoreButton,
         yesButton,
-        description;
+        description,
+        buttonPadding = 15;
 
     Arcadia.Scene.apply(this, arguments);
 
@@ -33,7 +34,7 @@ var UnlockScene = function () {
         position: { x: 0, y: 75 },
         color: null,
         border: '2px #fff',
-        padding: 10,
+        padding: buttonPadding,
         text: 'Yes, please',
         font: '20px monospace',
         action: function () {
@@ -47,7 +48,7 @@ var UnlockScene = function () {
         position: { x: 0, y: 150 },
         color: null,
         border: '2px #fff',
-        padding: 10,
+        padding: buttonPadding,
         text: 'No, thanks',
         font: '20px monospace',
         action: function () {
@@ -61,7 +62,7 @@ var UnlockScene = function () {
         position: { x: 0, y: 225 },
         color: null,
         border: '2px #fff',
-        padding: 10,
+        padding: buttonPadding,
         text: 'Restore purchase',
         font: '20px monospace',
         action: function () {

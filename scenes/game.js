@@ -7,8 +7,10 @@ var GameScene = function (options) {
     options = options || {};
 
     var actionWord = Arcadia.ENV.mobile ? 'Tap' : 'Click',
-        buttonPadding = 5,
         self = this;
+
+    this.buttonPadding = 10;
+    this.animationDuration = 2000;
 
     // Background/vertex color
     Vertex.DEFAULT_COLOR = Arcadia.cycleBackground();
@@ -71,7 +73,7 @@ var GameScene = function (options) {
         this.resetButton = new Arcadia.Button({
             color: null,
             border: '2px #fff',
-            padding: buttonPadding,
+            padding: this.buttonPadding,
             text: 'reset',
             font: '26px monospace',
             action: function () {
@@ -89,8 +91,8 @@ var GameScene = function (options) {
             }
         });
         this.resetButton.position = {
-            x: this.size.width / 2 - this.resetButton.size.width / 2 - buttonPadding,
-            y: -this.size.height / 2 + this.resetButton.size.height / 2 + buttonPadding
+            x: this.size.width / 2 - this.resetButton.size.width / 2 - this.buttonPadding,
+            y: -this.size.height / 2 + this.resetButton.size.height / 2 + this.buttonPadding
         };
         this.add(this.resetButton);
 
@@ -98,7 +100,7 @@ var GameScene = function (options) {
         this.backButton = new Arcadia.Button({
             color: null,
             border: '2px #fff',
-            padding: buttonPadding,
+            padding: this.buttonPadding,
             text: 'quit',
             font: '26px monospace',
             action: function () {
@@ -107,8 +109,8 @@ var GameScene = function (options) {
             }
         });
         this.backButton.position = {
-            x: -this.size.width / 2 + this.backButton.size.width / 2 + buttonPadding,
-            y: -this.size.height / 2 + this.backButton.size.height / 2 + buttonPadding
+            x: -this.size.width / 2 + this.backButton.size.width / 2 + this.buttonPadding,
+            y: -this.size.height / 2 + this.backButton.size.height / 2 + this.buttonPadding
         };
         this.add(this.backButton);
     }
@@ -119,7 +121,6 @@ GameScene.prototype = new Arcadia.Scene();
 GameScene.prototype.load = function () {
     var levels = localStorage.getObject('levels') || LEVELS,
         data,
-        animationDuration = 2000,
         self = this;
 
     if (levels[this.level] === undefined || levels[this.level] === null) {
@@ -144,7 +145,7 @@ GameScene.prototype.load = function () {
 
     // Grow vertices
     this.vertices.forEach(function (vertex) {
-        vertex.tween('scale', 1, animationDuration, 'elasticOut');
+        vertex.tween('scale', 1, self.animationDuration, 'elasticOut');
     });
 };
 
@@ -387,7 +388,6 @@ GameScene.prototype.win = function () {
         progressAscii,
         completed,
         percentComplete,
-        animationDuration = 2000,
         self = this;
 
     // Disable touch/mouse methods for drawing
@@ -400,7 +400,7 @@ GameScene.prototype.win = function () {
 
     // Shrink vertices
     this.vertices.forEach(function (vertex) {
-        vertex.tween('scale', 0, animationDuration, 'elasticIn');
+        vertex.tween('scale', 0, self.animationDuration, 'elasticIn');
     });
 
     completed = localStorage.getObject('completed')
@@ -429,7 +429,7 @@ GameScene.prototype.win = function () {
 
     nextButton = new Arcadia.Button({
         position: { x: 0, y: -40 },
-        padding: 5,
+        padding: this.buttonPadding,
         color: null,
         border: '2px #fff',
         text: 'next',
@@ -463,5 +463,5 @@ GameScene.prototype.win = function () {
     window.setTimeout(function () {
         self.activate(nextButton);
         self.activate(progressBar);
-    }, animationDuration);
+    }, this.animationDuration);
 };

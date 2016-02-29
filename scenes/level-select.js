@@ -29,6 +29,8 @@ var LevelSelectScene = function (options) {
         animationDuration = 2000,
         self = this;
 
+    this.buttonPadding = 15;
+
     // Background/vertex color
     Vertex.DEFAULT_COLOR = Arcadia.cycleBackground();
 
@@ -91,7 +93,7 @@ var LevelSelectScene = function (options) {
             position: { x: 0, y: startY - 150 },
             color: null,
             border: '2px #fff',
-            padding: 5,
+            padding: this.buttonPadding,
             text: 'unlock all puzzles',
             font: '26px monospace',
             action: function () {
@@ -158,7 +160,7 @@ var LevelSelectScene = function (options) {
         },
         color: null,
         border: '2px #fff',
-        padding: 15,
+        padding: this.buttonPadding,
         text: 'play',
         font: '26px monospace',
         action: function () {
@@ -181,7 +183,7 @@ var LevelSelectScene = function (options) {
     //     },
     //     color: null,
     //     border: '2px #fff',
-    //     padding: 15,
+    //     padding: this.buttonPadding,
     //     text: 'edit',
     //     font: '26px monospace',
     //     action: function () {
