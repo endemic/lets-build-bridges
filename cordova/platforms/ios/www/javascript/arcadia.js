@@ -414,6 +414,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
 
     Game.prototype.pause = function() {
+      this.stop();
       if (typeof this.activeScene.pause === "function") {
         return this.activeScene.pause();
       }
@@ -425,6 +426,7 @@ var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? 
 
 
     Game.prototype.resume = function() {
+      this.start();
       if (typeof this.activeScene.resume === "function") {
         return this.activeScene.resume();
       }

@@ -47,6 +47,10 @@
         });
 
         UnlockScene.initializeStore();
+
+        if (navigator.splashscreen) {
+          navigator.splashscreen.hide();
+        }
       });
     }, false);
 	</script>

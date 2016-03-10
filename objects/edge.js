@@ -6,7 +6,7 @@ var Edge = function (options) {
     this.count = 1;
 
     this.vertices = [];
-    
+
     this.path = function (context) {
         if (this.count === 1) {
             if (this.size.height > this.size.width) {
