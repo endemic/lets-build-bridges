@@ -58,9 +58,9 @@ var LevelSelectScene = function (options) {
         for (y = startY; y < startY + gridHeight; y += spacing) {
             for (x = startX; x < startX + gridWidth; x += spacing) {
                 if (page < this.currentPage) {
-                    offset = -Arcadia.WIDTH;
+                    offset = -Arcadia.VIEWPORT_WIDTH;
                 } else if (page > this.currentPage) {
-                    offset = Arcadia.WIDTH;
+                    offset = Arcadia.VIEWPORT_WIDTH;
                 } else {
                     offset = 0;
                 }
@@ -178,8 +178,8 @@ var LevelSelectScene = function (options) {
     // TODO: Eventually re-enable the editor for users
     // this.editButton = new Arcadia.Button({
     //     position: {
-    //         x: Arcadia.WIDTH / 2,
-    //         y: Arcadia.HEIGHT - 75
+    //         x: Arcadia.VIEWPORT_WIDTH / 2,
+    //         y: Arcadia.VIEWPORT_HEIGHT - 75
     //     },
     //     color: null,
     //     border: '2px #fff',
@@ -193,15 +193,17 @@ var LevelSelectScene = function (options) {
     // });
     // this.add(this.editButton);
 
-    if (options.selected !== undefined) {
-        this.selected = options.selected;
-        this.levels[this.selected].highlight();
-    }
-
     if (this.currentPage === 0) {
         this.previousButton.alpha = 0.5;
     } else if (this.currentPage === this.pages.length - 1) {
         this.nextButton.alpha = 0.5;
+    }
+
+    if (options.selected !== undefined) {
+        this.selected = options.selected;
+        setTimeout(function () {
+            self.levels[self.selected].highlight();
+        }, animationDuration);
     }
 };
 
@@ -250,7 +252,7 @@ LevelSelectScene.prototype.onPointEnd = function (points) {
 };
 
 LevelSelectScene.prototype.nextPage = function () {
-    var offset = -Arcadia.WIDTH,
+    var offset = -Arcadia.VIEWPORT_WIDTH,
         self = this;
 
     if (this.currentPage < this.pages.length - 1) {
@@ -286,7 +288,7 @@ LevelSelectScene.prototype.nextPage = function () {
 };
 
 LevelSelectScene.prototype.previousPage = function () {
-    var offset = Arcadia.WIDTH,
+    var offset = Arcadia.VIEWPORT_WIDTH,
         self = this;
 
     if (this.currentPage > 0) {

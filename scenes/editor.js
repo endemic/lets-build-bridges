@@ -12,7 +12,7 @@ var EditorScene = function (options) {
 
     this.color = 'purple';
 
-    // Object that tracks player's cursor/finger; used for collision detection 
+    // Object that tracks player's cursor/finger; used for collision detection
     this.cursor = new Arcadia.Shape({
         size: { width: 8, height: 8 },
         vertices: 0,
@@ -34,7 +34,7 @@ var EditorScene = function (options) {
     });
     this.add(this.activeEdge);
     this.deactivate(this.activeEdge);
-    
+
     // Export data to console/localStorage
     this.saveButton = new Arcadia.Button({
         color: null,
@@ -45,7 +45,7 @@ var EditorScene = function (options) {
         action: this.save.bind(this)
     });
     this.saveButton.position = {
-        x: Arcadia.WIDTH - this.saveButton.size.width / 2 - buttonPadding,
+        x: Arcadia.VIEWPORT_WIDTH - this.saveButton.size.width / 2 - buttonPadding,
         y: this.saveButton.size.height / 2 + buttonPadding
     };
     this.add(this.saveButton);
@@ -77,12 +77,12 @@ var EditorScene = function (options) {
     this.interactiveArea = new Arcadia.Shape({
         color: null,
         size: {
-            width: Arcadia.WIDTH,
-            height: Arcadia.HEIGHT
+            width: Arcadia.VIEWPORT_WIDTH,
+            height: Arcadia.VIEWPORT_HEIGHT
         },
         position: {
-            x: Arcadia.WIDTH / 2,
-            y: Arcadia.HEIGHT / 2 + this.backButton.size.height + buttonPadding
+            x: Arcadia.VIEWPORT_WIDTH / 2,
+            y: Arcadia.VIEWPORT_HEIGHT / 2 + this.backButton.size.height + buttonPadding
         }
     });
     this.add(this.interactiveArea);
@@ -113,7 +113,7 @@ EditorScene.prototype.save = function () {
     };
 
     console.log(JSON.stringify(data));
-    
+
     levels = localStorage.getObject('levels') || LEVELS;
     levels[this.level] = data;
     localStorage.setObject('levels', levels);
@@ -301,7 +301,7 @@ EditorScene.prototype.onPointEnd = function (points) {
                             height: Vertex.SIZE / 2
                         };
                     }
-                    
+
                     // check collision
                     j = this.edges.length;
                     while (j--) {
@@ -377,7 +377,7 @@ EditorScene.prototype.onPointEnd = function (points) {
             }
         }
 
-        // place a vertex here if it won't collide w/ an existing edge or 
+        // place a vertex here if it won't collide w/ an existing edge or
         // vertex, and we didn't _just_ remove an edge
         // Vertices need to be > 16px apart, so 16.5
         var halfSpacing = 34;
@@ -446,7 +446,7 @@ EditorScene.prototype.checkCompleteness = function () {
     if (complete) {
         foundVertices = [];
         this.search(this.vertices[0], foundVertices);
-        
+
         if (foundVertices.length === this.vertices.length) {
             // Enable the "save" button
             this.saveButton.disabled = false;

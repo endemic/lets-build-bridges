@@ -50,7 +50,7 @@ var GameScene = function (options) {
         this.titleLabel = new Arcadia.Label({
             position: {
                 x: 0,
-                y: -Arcadia.HEIGHT / 4
+                y: -Arcadia.VIEWPORT_HEIGHT / 4
             },
             color: '#fff',
             font: '48px monospace',
@@ -61,7 +61,7 @@ var GameScene = function (options) {
         this.helpLabel = new Arcadia.Label({
             position: {
                 x: 0,
-                y: Arcadia.HEIGHT / 3
+                y: Arcadia.VIEWPORT_HEIGHT / 3
             },
             color: '#fff',
             font: '20 monospace',
