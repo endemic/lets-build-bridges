@@ -1,10 +1,16 @@
 {
   "name": "lets-build-bridges",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Logic puzzle game",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "concat": "cat src/objects/*.js src/data/*.js src/lib/*.js src/scenes/*.js > dist/lets-build-bridges.js",
+    "compress": "./node_modules/.bin/uglifyjs dist/lets-build-bridges.js --source-map dist/lets-build-bridges.min.js.map --source-map-root https://ganbarugames.com/bridges/javascript --output dist/lets-build-bridges.min.js --mangle --compress",
+    "copy_to_cordova": "cp dist/lets-build-bridges.min.js cordova/www/javascript; cp node_modules/arcadia/dist/arcadia.min.js cordova/www/javascript; cp node_modules/sona/dist/sona.js cordova/www/javascript; cp -r assets/** cordova/www/assets",
+    "copy_to_web": "cp dist/lets-build-bridges.min.js ../../websites/ganbarugames.com/bridges/javascript; cp node_modules/arcadia/dist/arcadia.min.js ../../websites/ganbarugames.com/bridges/javascript; cp node_modules/sona/dist/sona.js ../../websites/ganbarugames.com/bridges/javascript; cp -r assets/** ../../websites/ganbarugames.com/bridges/assets; cp dist/index.html ../../websites/ganbarugames.com/bridges; cp manifest.json ../../websites/ganbarugames.com/bridges",
+    "cordova": "npm run-script concat && npm run-script compress && npm run-script copy_to_cordova",
+    "web": "npm run-script concat && npm run-script compress && npm run-script copy_to_web"
   },
   "repository": {
     "type": "git",
@@ -24,10 +30,7 @@
   "homepage": "https://github.com/endemic/lets-build-bridges",
   "devDependencies": {
     "arcadia": "file:../arcadia",
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.2.0",
-    "sona": "^1.0.3"
+    "sona": "^1.0.3",
+    "uglify-js": "^2.6.2"
   }
 }
