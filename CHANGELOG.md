@@ -2,7 +2,7 @@
 =====
 * Cycle background colors
 * Add progress meter
-* intro animations for vertices
+* Add intro animations for vertices
 
 1.1.1
 =====
@@ -12,3 +12,10 @@
 =====
 * Fix performance issue when returning from background
 * Fix splashscreen plugin config to prevent white flash at launch
+
+1.2
+====
+* Upgrade to WKWebView (Cordova 4.0)
+* New descriptive screenshots
+* Add an "About" screen
+* Add a "review nag" screen

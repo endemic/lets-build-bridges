@@ -6,8 +6,8 @@ var GameScene = function (options) {
 
     options = options || {};
 
-    var actionWord = Arcadia.ENV.mobile ? 'Tap' : 'Click',
-        self = this;
+    var actionWord = Arcadia.ENV.mobile ? 'Tap' : 'Click';
+    var self = this;
 
     this.buttonPadding = 10;
     this.animationDuration = 2000;
@@ -119,16 +119,15 @@ var GameScene = function (options) {
 GameScene.prototype = new Arcadia.Scene();
 
 GameScene.prototype.load = function () {
-    var levels = localStorage.getObject('levels') || LEVELS,
-        data,
-        self = this;
+    var levels = localStorage.getObject('levels') || LEVELS;
+    var self = this;
 
-    if (levels[this.level] === undefined || levels[this.level] === null) {
-        Arcadia.changeScene(LevelSelectScene, { selected: self.level });
+    if (!levels[this.level]) {
         alert('No level data for #' + (this.level + 1));
+        Arcadia.changeScene(LevelSelectScene, { selected: self.level });
     }
 
-    data = levels[this.level];
+    var data = levels[this.level];
 
     // Re-create vertices
     data.vertices.forEach(function (data) {
@@ -156,17 +155,16 @@ GameScene.prototype.onPointStart = function (points) {
         return;
     }
 
-    var i,
-        distance,
-        vertex;
-
     // Show the "cursor" object; move it to the mouse/touch point
     this.cursor.position = {
         x: points[0].x,
         y: points[0].y
     };
 
-    i = this.vertices.length;
+    var i = this.vertices.length;
+    var vertex;
+    var distance;
+
     while (i--) {
         vertex = this.vertices[i];
 
@@ -383,12 +381,7 @@ GameScene.prototype.checkCompleteness = function () {
 
 // Show a "u won, next level?" sort of message
 GameScene.prototype.win = function () {
-    var nextButton,
-        progressBar,
-        progressAscii,
-        completed,
-        percentComplete,
-        self = this;
+    var self = this;
 
     // Disable touch/mouse methods for drawing
     this.gameOver = true;
@@ -403,21 +396,18 @@ GameScene.prototype.win = function () {
         vertex.tween('scale', 0, self.animationDuration, 'elasticIn');
     });
 
-    completed = localStorage.getObject('completed')
-    if (completed === null) {
-        completed = [];
-        while (completed.length < LEVELS.length) {
-            completed.push(null);
-        }
+    var completed = localStorage.getObject('completed') || [];
+    while (completed.length < LEVELS.length) {
+        completed.push(null);
     }
     completed[this.level] = true;
     localStorage.setObject('completed', completed);
 
-    percentComplete = completed.filter(function (entry) {
+    var percentComplete = completed.filter(function (entry) {
         return entry === true;
     }).length / completed.length;
 
-    progressAscii = '[';
+    var progressAscii = '[';
     while (progressAscii.length <= 10) {
         if (progressAscii.length <= percentComplete * 10) {
             progressAscii += '=';
@@ -427,7 +417,7 @@ GameScene.prototype.win = function () {
     }
     progressAscii += ']';
 
-    nextButton = new Arcadia.Button({
+    var nextButton = new Arcadia.Button({
         position: { x: 0, y: -40 },
         padding: this.buttonPadding,
         color: null,
@@ -438,20 +428,24 @@ GameScene.prototype.win = function () {
             sona.play('button');
 
             var incompleteLevel = completed.indexOf(null);
+            var nagShown = localStorage.getBoolean('nagShown');
+            var NAG_FOR_REVIEW_THRESHOLD = 0.4;
 
             if (incompleteLevel === -1) {
                 Arcadia.changeScene(CreditsScene);
             } else if (Arcadia.isLocked() && incompleteLevel >= 15) {
                 Arcadia.changeScene(UnlockScene);
+            } else if (Arcadia.ENV.cordova && percentComplete > NAG_FOR_REVIEW_THRESHOLD && !nagShown ) {
+                Arcadia.changeScene(ReviewNagScene, {level: incompleteLevel});
             } else {
-                Arcadia.changeScene(GameScene, { level: incompleteLevel });
+                Arcadia.changeScene(GameScene, {level: incompleteLevel});
             }
         }
     });
     this.add(nextButton);
     this.deactivate(nextButton);
 
-    progressBar = new Arcadia.Label({
+    var progressBar = new Arcadia.Label({
         position: { x: 0, y: 40 },
         color: 'white',
         font: '26px monospace',

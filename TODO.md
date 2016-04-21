@@ -1,10 +1,14 @@
 # TODO
 
-[ ] "About" screen with "rate", "reset data", and "more games" buttons
+[x] "About" screen with "rate", "reset data", and "more games" buttons
 [ ] New screenshots with descriptive text
-[ ] Ditch gulp
+	* Tap and drag to connect islands together
+	* Connect all the islands to solve the puzzle
+	* 100 unique puzzles to solve
+	* Play on your phone or tablet
+[x] Ditch gulp
 [ ] Upgrade to newest Cordova with fast webview
-[ ] Add "rate this app" nag view -- after completing half the puzzles
+[x] Add "rate this app" nag view -- after completing half the puzzles
 [ ] Publish update with new screenshots
 
 ----------------
@@ -14,6 +18,8 @@
 [ ] Allow users to share levels?
 [ ] Combine editor/game?
 [ ] Maybe some music?
+
+---------------------
 
 [x] Create new version in iTunes Connect
 [x] Update icon in Cordova project

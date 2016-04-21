@@ -6,42 +6,38 @@ var LevelSelectScene = function (options) {
 
     options = options || {};
 
-    // Puzzles hidden behind IAP wall will be red, normal will be purple,
-    // completed will be green
+    // Show 25 levels per page
+    var rows = 5;
+    var columns = 5;
 
-    var spacing = Vertex.SIZE + 10,
-        completed,
-        levels,
-        counter = 0,
-        rows = 5,   // Show 25 levels per page
-        columns = 5,
-        centerX = 0,
-        centerY = 0,
-        gridWidth = rows * spacing,
-        gridHeight = columns * spacing,
-        startX = centerX - gridWidth / 2 + spacing / 2,
-        startY = centerY - gridHeight / 2 + spacing / 2,
-        page,
-        y,
-        x,
-        offset,
-        shape,
-        animationDuration = 2000,
-        self = this;
-
-    this.buttonPadding = 15;
+    // vars for displaying level buttons
+    var spacing = Vertex.SIZE + 10;
+    var centerX = 0;
+    var centerY = 0;
+    var gridWidth = rows * spacing;
+    var gridHeight = columns * spacing;
+    var startX = centerX - gridWidth / 2 + spacing / 2;
+    var startY = centerY - gridHeight / 2 + spacing / 2;
+    var animationDuration = 2000;
+    var self = this;
 
     // Background/vertex color
     Vertex.DEFAULT_COLOR = Arcadia.cycleBackground();
 
     this.levels = [];
     this.selected = null;
-    completed = localStorage.getObject('completed') || Array(LEVELS.length);
-    levels = localStorage.getObject('levels') || LEVELS;
+    this.buttonPadding = 15;
+
+    var levels = localStorage.getObject('levels') || LEVELS;
+    var completed = localStorage.getObject('completed') || [];
+
+    while (completed.length < LEVELS.length) {
+        completed.push(null);
+    }
 
     // Object that tracks player's cursor/finger; used for collision detection
     this.cursor = new Arcadia.Shape({
-        size: { width: 8, height: 8 },
+        size: {width: 8, height: 8},
         vertices: 0
     });
     this.add(this.cursor);
@@ -52,9 +48,21 @@ var LevelSelectScene = function (options) {
         [], [], [], []
     ];
 
-    this.currentPage = parseInt(localStorage.getItem('currentPage'), 10) || 0;
+    this.selected = options.selected || completed.indexOf(null); // First incomplete level
+    this.currentPage = Math.floor(this.selected / (rows * columns));
 
-    for (page = 0; page < this.pages.length; page += 1) {
+    setTimeout(function () {
+        self.levels[self.selected].highlight();
+    }, animationDuration);
+
+    var page = 0;
+    var counter = 0;
+    var x;
+    var y;
+    var offset;
+    var shape;
+
+    for (page; page < this.pages.length; page += 1) {
         for (y = startY; y < startY + gridHeight; y += spacing) {
             for (x = startX; x < startX + gridWidth; x += spacing) {
                 if (page < this.currentPage) {
@@ -89,7 +97,7 @@ var LevelSelectScene = function (options) {
     });
 
     if (this.isLocked()) {
-        this.unlockButton = new Arcadia.Button({
+        var unlockButton = new Arcadia.Button({
             position: { x: 0, y: startY - 150 },
             color: null,
             border: '2px #fff',
@@ -100,7 +108,22 @@ var LevelSelectScene = function (options) {
                 Arcadia.changeScene(UnlockScene);
             }
         });
-        this.add(this.unlockButton);
+        this.add(unlockButton);
+    } else {
+        var aboutButton = new Arcadia.Button({
+            position: { x: 0, y: startY - 150 },
+            color: null,
+            border: '2px #fff',
+            text: '?',
+            size: {width: Vertex.SIZE, height: Vertex.SIZE},
+            vertices: 0,
+            font: '26px monospace',
+            action: function () {
+                sona.play('button');
+                Arcadia.changeScene(AboutScene);
+            }
+        });
+        this.add(aboutButton);
     }
 
     this.previousButton = new Arcadia.Button({
@@ -198,13 +221,6 @@ var LevelSelectScene = function (options) {
     } else if (this.currentPage === this.pages.length - 1) {
         this.nextButton.alpha = 0.5;
     }
-
-    if (options.selected !== undefined) {
-        this.selected = options.selected;
-        setTimeout(function () {
-            self.levels[self.selected].highlight();
-        }, animationDuration);
-    }
 };
 
 LevelSelectScene.prototype = new Arcadia.Scene();
@@ -231,8 +247,8 @@ LevelSelectScene.prototype.onPointMove = function (points) {
 LevelSelectScene.prototype.onPointEnd = function (points) {
     Arcadia.Scene.prototype.onPointEnd.call(this, points); // "super()"
 
-    var i = this.levels.length,
-        level;
+    var i = this.levels.length;
+    var level;
 
     while (i--) {
         level = this.levels[i];
@@ -252,8 +268,8 @@ LevelSelectScene.prototype.onPointEnd = function (points) {
 };
 
 LevelSelectScene.prototype.nextPage = function () {
-    var offset = -Arcadia.VIEWPORT_WIDTH,
-        self = this;
+    var offset = -Arcadia.VIEWPORT_WIDTH;
+    var self = this;
 
     if (this.currentPage < this.pages.length - 1) {
         sona.play('button');
@@ -272,7 +288,6 @@ LevelSelectScene.prototype.nextPage = function () {
         });
 
         this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.pages.length;
-        localStorage.setItem('currentPage', this.currentPage);
 
         window.setTimeout(function () {
             self.nextButton.disabled = false;
@@ -308,7 +323,6 @@ LevelSelectScene.prototype.previousPage = function () {
         });
 
         this.pageLabel.text = (this.currentPage + 1) + ' / ' + this.pages.length;
-        localStorage.setItem('currentPage', this.currentPage);
 
         window.setTimeout(function () {
             self.previousButton.disabled = false;

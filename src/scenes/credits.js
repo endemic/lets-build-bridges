@@ -1,45 +1,51 @@
 /*globals Arcadia, LevelSelectScene, LEVELS, localStorage */
 
-var CreditsScene = function () {
+(function (root) {
     'use strict';
 
-    Arcadia.Scene.apply(this, arguments);
+    var CreditsScene = function () {
 
-    var title,
-        button,
-        description;
+        Arcadia.Scene.apply(this, arguments);
 
-    Arcadia.cycleBackground();
+        Arcadia.cycleBackground();
 
-    title = new Arcadia.Label({
-        position: { x: 0, y: -167 },
-        font: '48px monospace',
-        text: 'Thanks\nFor\nPlaying!'
-    });
-    this.add(title);
+        var title = new Arcadia.Label({
+            position: { x: 0, y: -167 },
+            font: '48px monospace',
+            text: 'Thanks\nFor\nPlaying!'
+        });
+        this.add(title);
 
-    description = new Arcadia.Label({
-        position: { x: 0, y: 33 },
-        font: '20px monospace',
-        text: 'Programming by Nathan Demick\nPuzzle concept by Nikoli\n(c) 2016 Ganbaru Games\nhttp://ganbarugames.com'
-    });
-    this.add(description);
+        var creditsText = [
+            'Programming by Nathan Demick',
+            'Puzzle concept by Nikoli',
+            '(c) 2015-2016 Ganbaru Games',
+            'https://ganbarugames.com'
+        ];
 
-    button = new Arcadia.Button({
-        position: { x: 0, y: 200 },
-        color: null,
-        border: '2px #fff',
-        padding: 20,
-        text: 'OK',
-        font: '20px monospace',
-        action: function () {
-            // Clear out saved level data here! start over like a champ
-            localStorage.setObject('completed', new Array(LEVELS.length));
-            sona.play('button');
-            Arcadia.changeScene(LevelSelectScene);
-        }
-    });
-    this.add(button);
-};
+        var description = new Arcadia.Label({
+            position: { x: 0, y: 33 },
+            font: '20px monospace',
+            text: creditsText.join('\n')
+        });
+        this.add(description);
 
-CreditsScene.prototype = new Arcadia.Scene();
+        var button = new Arcadia.Button({
+            position: { x: 0, y: 200 },
+            color: null,
+            border: '2px #fff',
+            padding: 20,
+            text: 'OK',
+            font: '20px monospace',
+            action: function () {
+                sona.play('button');
+                Arcadia.changeScene(LevelSelectScene);
+            }
+        });
+        this.add(button);
+    };
+
+    CreditsScene.prototype = new Arcadia.Scene();
+
+    root.CreditsScene = CreditsScene;
+}(window));
