@@ -2,9 +2,12 @@
 
 [ ] "About" screen with "rate", "reset data", and "more games" buttons
 [ ] New screenshots with descriptive text
-  * Use the scaling script written for Nonograms
 [ ] Ditch gulp
-[ ] Upgrade to newest Cordova
+[ ] Upgrade to newest Cordova with fast webview
+[ ] Add "rate this app" nag view -- after completing half the puzzles
+[ ] Publish update with new screenshots
+
+----------------
 
 [ ] Auto save/restore puzzle progress
 [ ] Add "win" jingle
