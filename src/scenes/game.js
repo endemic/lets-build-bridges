@@ -435,7 +435,7 @@ GameScene.prototype.win = function () {
                 Arcadia.changeScene(CreditsScene);
             } else if (Arcadia.isLocked() && incompleteLevel >= 15) {
                 Arcadia.changeScene(UnlockScene);
-            } else if (Arcadia.ENV.cordova && percentComplete > NAG_FOR_REVIEW_THRESHOLD && !nagShown ) {
+            } else if (Arcadia.ENV.cordova && percentComplete > NAG_FOR_REVIEW_THRESHOLD && !nagShown) {
                 Arcadia.changeScene(ReviewNagScene, {level: incompleteLevel});
             } else {
                 Arcadia.changeScene(GameScene, {level: incompleteLevel});

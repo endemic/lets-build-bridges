@@ -67,8 +67,7 @@
         });
         this.add(dataResetButton);
 
-        // TODO: fix this condition
-        if (true || Arcadia.ENV.cordova) {
+        if (Arcadia.ENV.cordova) {
             var rateButton = new Arcadia.Button({
                 position: {x: 0, y: dataResetButton.position.y + BUTTON_MARGIN},
                 size: {width: 240, height: 50},
