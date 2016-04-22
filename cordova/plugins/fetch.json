@@ -7,6 +7,14 @@
         "is_top_level": true,
         "variables": {}
     },
+    "cordova-plugin-splashscreen": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-splashscreen"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
     "cc.fovea.cordova.purchase": {
         "source": {
             "type": "registry",
@@ -19,14 +27,6 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-console"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-splashscreen": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-splashscreen"
         },
         "is_top_level": true,
         "variables": {}

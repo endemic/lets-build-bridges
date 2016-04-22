@@ -45,13 +45,13 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
         },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ganbarugames.bridges"
+        },
         "cc.fovea.cordova.purchase": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ganbarugames.bridges"
-        },
-        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
         }
     },

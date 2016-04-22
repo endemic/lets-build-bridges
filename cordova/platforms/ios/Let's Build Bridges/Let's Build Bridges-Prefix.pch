@@ -17,7 +17,7 @@
  under the License.
  */
 //
-// Prefix header for all source files of the 'LetsBuildBridges' target in the 'LetsBuildBridges' project
+// Prefix header for all source files of the 'Let's Build Bridges' target in the 'Let's Build Bridges' project
 //
 
 #ifdef __OBJC__

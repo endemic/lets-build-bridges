@@ -10,17 +10,23 @@
 #import <StoreKit/StoreKit.h>
 
 #import <Cordova/CDVPlugin.h>
-#import <Cordova/NSData+Base64.h>
+
+#ifndef __CORDOVA_4_0_0
+    #import <Cordova/NSData+Base64.h>
+#endif
 
 #import "SKProduct+LocalizedPrice.h"
+#import "FileUtility.h"
 
 @interface InAppPurchase : CDVPlugin <SKPaymentTransactionObserver> {
     NSMutableDictionary *list;
     NSMutableDictionary *retainer;
     NSMutableDictionary *unfinishedTransactions;
+    NSMutableDictionary *currentDownloads;
 }
 @property (nonatomic,retain) NSMutableDictionary *list;
 @property (nonatomic,retain) NSMutableDictionary *retainer;
+@property (nonatomic, retain) NSMutableDictionary *currentDownloads;
 //keep a reference to the transaction observer, to make sure we have only 1 call
 @property (nonatomic,assign) id <SKPaymentTransactionObserver> observer;
 
@@ -32,9 +38,14 @@
 - (void) appStoreReceipt: (CDVInvokedUrlCommand*)command;
 - (void) appStoreRefreshReceipt: (CDVInvokedUrlCommand*)command;
 
+- (void) pause: (CDVInvokedUrlCommand*)command;
+- (void) resume: (CDVInvokedUrlCommand*)command;
+- (void) cancel: (CDVInvokedUrlCommand*)command;
+
 - (void) paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions;
 - (void) paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error;
 - (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue;
+- (void) paymentQueue:(SKPaymentQueue *)queue updatedDownloads:(NSArray *)downloads;
 
 - (void) debug: (CDVInvokedUrlCommand*)command;
 - (void) noAutoFinish: (CDVInvokedUrlCommand*)command;

@@ -14,6 +14,7 @@ be notified of changes to one or a set of products using a [`query`](#queries) m
     store.when("product").updated(refreshScreen);
     store.when("full version").owned(unlockApp);
     store.when("subscription").approved(serverCheck);
+    store.when("downloadable content").downloaded(showContent);
     etc.
 ```
 
@@ -260,16 +261,24 @@ The `verbosity` property defines how much you want `store.js` to write on the co
  - `store.DEBUG` or `4` to enable internal debugging messages.
 
 See the [logging levels](#logging-levels) constants.
+## <a name="sandbox"></a>*store.sandbox*
+
+The `sandbox` property defines if you want to invoke the platform purchase sandbox
+
+- Windows will use the IAP simulator if true (see Windows docs)
+- Android: NOT IN USE
+- iOS: NOT IN USE
 
 ## Constants
 
 
 ### product types
 
-    store.FREE_SUBSCRIPTION = "free subscription";
-    store.PAID_SUBSCRIPTION = "paid subscription";
-    store.CONSUMABLE        = "consumable";
-    store.NON_CONSUMABLE    = "non consumable";
+    store.FREE_SUBSCRIPTION         = "free subscription";
+    store.PAID_SUBSCRIPTION         = "paid subscription";
+    store.NON_RENEWING_SUBSCRIPTION = "non renewing subscription";
+    store.CONSUMABLE                = "consumable";
+    store.NON_CONSUMABLE            = "non consumable";
 
 ### error codes
 
@@ -292,6 +301,7 @@ See the [logging levels](#logging-levels) constants.
     store.ERR_BAD_RESPONSE        = ERROR_CODES_BASE + 18; // Verification of store data failed.
     store.ERR_REFRESH             = ERROR_CODES_BASE + 19; // Failed to refresh the store.
     store.ERR_PAYMENT_EXPIRED     = ERROR_CODES_BASE + 20;
+    store.ERR_DOWNLOAD            = ERROR_CODES_BASE + 21;
 
 ### product states
 
@@ -303,6 +313,8 @@ See the [logging levels](#logging-levels) constants.
     store.APPROVED   = 'approved';
     store.FINISHED   = 'finished';
     store.OWNED      = 'owned';
+    store.DOWNLOADING = 'downloading';
+    store.DOWNLOADED = 'downloaded';
 
 ### logging levels
 
@@ -337,6 +349,8 @@ Products object have the following fields and methods.
  - `product.valid` - Product has been loaded and is a valid product
  - `product.canPurchase` - Product is in a state where it can be purchased
  - `product.owned` - Product is owned
+ - `product.downloading` - Product is downloading non-consumable content
+ - `product.downloaded` - Non-consumable content has been successfully downloaded for this product
  - `product.transaction` - Latest transaction data for this product (see [transactions](#transactions)).
 
 ### *store.Product* public methods
@@ -403,9 +417,11 @@ Find below a diagram of the different states a product can pass by.
                                                           |
                     ^      +------------------------------+
                     |      |
-                    |      +--> APPROVED +--> FINISHED +--> OWNED
-                    |                                  |
-                    +----------------------------------+
+                    |      |             +--> DOWNLOADING +--> DOWNLOADED +
+                    |      |             |                                |
+                    |      +--> APPROVED +--------------------------------+--> FINISHED +--> OWNED
+                    |                                                             |
+                    +-------------------------------------------------------------+
 
 #### states definitions
 
@@ -417,12 +433,15 @@ Find below a diagram of the different states a product can pass by.
  - `APPROVED`: purchase approved by server
  - `FINISHED`: purchase delivered by the app (see [Finish a Purchase](#finish-a-purchase))
  - `OWNED`: purchase is owned (only for non-consumable and subscriptions)
+ - `DOWNLOADING` purchased content is downloading (only for non-consumable)
+ - `DOWNLOADED` purchased content is downloaded (only for non-consumable)
 
 #### Notes
 
  - When finished, a consumable product will get back to the `VALID` state, while other will enter the `OWNED` state.
  - Any error in the purchase process will bring a product back to the `VALID` state.
  - During application startup, products may go instantly from `REGISTERED` to `APPROVED` or `OWNED`, for example if they are purchased non-consumables or non-expired subscriptions.
+ - Non-Renewing Subscriptions are iOS products only. Please see the [iOS Non Renewing Subscriptions documentation](https://github.com/j3k0/cordova-plugin-purchase/blob/master/doc/ios.md#non-renewing) for a detailed explanation.
 
 #### state changes
 
@@ -503,6 +522,8 @@ Some reserved keywords can't be used in the product `id` and `alias`:
  - `approved`
  - `owned`
  - `finished`
+ - `downloading`
+ - `downloaded`
  - `refreshed`
 
 ## <a name="get"></a>*store.get(id)*
@@ -549,6 +570,10 @@ product events defined below.
    - Called when receipt verification failed
  - `expired(product)`
    - Called when validation find a subscription to be expired
+ - `downloading(product, progress, time_remaining)`
+   - Called when content download is started
+ - `downloaded(product)`
+   - Called when content download has successfully completed
 
 ### alternative usage
 
@@ -749,6 +774,16 @@ have a way to do just that.
    // then and only then, call refresh.
    store.refresh();
 ```
+
+##### restore purchases example usage
+
+Add a "Refresh Purchases" button to call the `store.refresh()` method, like:
+
+`<button onclick="store.refresh()">Restore Purchases</button>`
+
+To make the restore purchases work as expected, please make sure that
+the "approved" event listener had be registered properly,
+and in the callback `product.finish()` should be called.
 
 ## *store.log* object
 ### `store.log.error(message)`

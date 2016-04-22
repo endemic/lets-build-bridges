@@ -20,7 +20,7 @@
     <!-- Splashscreen plugin -->
     <!-- https://github.com/apache/cordova-plugin-splashscreen -->
     <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="SplashScreenDelay" value="2000" />
     <preference name="FadeSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false"/>
 

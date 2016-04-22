@@ -31,7 +31,7 @@ store.Product = function(options) {
 
     ///  - `product.type` - Family of product, should be one of the defined [product types](#product-types).
     var type = this.type = options.type || null;
-    if (type !== store.CONSUMABLE && type !== store.NON_CONSUMABLE && type !== store.PAID_SUBSCRIPTION && type !== store.FREE_SUBSCRIPTION)
+    if (type !== store.CONSUMABLE && type !== store.NON_CONSUMABLE && type !== store.PAID_SUBSCRIPTION && type !== store.FREE_SUBSCRIPTION && type !== store.NON_RENEWING_SUBSCRIPTION)
         throw new TypeError("Invalid product type");
 
     ///  - `product.state` - Current state the product is in (see [life-cycle](#life-cycle) below). Should be one of the defined [product states](#product-states)
@@ -69,6 +69,12 @@ store.Product = function(options) {
 
     ///  - `product.owned` - Product is owned
     this.owned = options.owned;
+
+    ///  - `product.downloading` - Product is downloading non-consumable content
+    this.downloading = options.downloading;
+
+    ///  - `product.downloaded` - Non-consumable content has been successfully downloaded for this product
+    this.downloaded = options.downloaded;
 
     ///  - `product.transaction` - Latest transaction data for this product (see [transactions](#transactions)).
     this.transaction = null;
@@ -252,9 +258,11 @@ store.Product.prototype.verify = function() {
 ///                                                           |
 ///                     ^      +------------------------------+
 ///                     |      |
-///                     |      +--> APPROVED +--> FINISHED +--> OWNED
-///                     |                                  |
-///                     +----------------------------------+
+///                     |      |             +--> DOWNLOADING +--> DOWNLOADED +
+///                     |      |             |                                |
+///                     |      +--> APPROVED +--------------------------------+--> FINISHED +--> OWNED
+///                     |                                                             |
+///                     +-------------------------------------------------------------+
 ///
 /// #### states definitions
 ///
@@ -266,12 +274,15 @@ store.Product.prototype.verify = function() {
 ///  - `APPROVED`: purchase approved by server
 ///  - `FINISHED`: purchase delivered by the app (see [Finish a Purchase](#finish-a-purchase))
 ///  - `OWNED`: purchase is owned (only for non-consumable and subscriptions)
+///  - `DOWNLOADING` purchased content is downloading (only for non-consumable)
+///  - `DOWNLOADED` purchased content is downloaded (only for non-consumable)
 ///
 /// #### Notes
 ///
 ///  - When finished, a consumable product will get back to the `VALID` state, while other will enter the `OWNED` state.
 ///  - Any error in the purchase process will bring a product back to the `VALID` state.
 ///  - During application startup, products may go instantly from `REGISTERED` to `APPROVED` or `OWNED`, for example if they are purchased non-consumables or non-expired subscriptions.
+///  - Non-Renewing Subscriptions are iOS products only. Please see the [iOS Non Renewing Subscriptions documentation](https://github.com/j3k0/cordova-plugin-purchase/blob/master/doc/ios.md#non-renewing) for a detailed explanation.
 ///
 /// #### state changes
 ///
