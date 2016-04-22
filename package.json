@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/endemic/lets-build-bridges",
   "devDependencies": {
-    "arcadia": "file:../arcadia",
+    "arcadia": "^2.0.1",
     "sona": "^1.0.3",
     "uglify-js": "^2.6.2"
   }
