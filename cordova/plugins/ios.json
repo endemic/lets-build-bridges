@@ -42,9 +42,6 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ganbarugames.bridges"
-        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
         },
@@ -52,6 +49,9 @@
             "PACKAGE_NAME": "com.ganbarugames.bridges"
         },
         "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ganbarugames.bridges"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
         }
     },

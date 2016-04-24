@@ -7,9 +7,9 @@
 	* 100 unique puzzles to solve
 	* Play on your phone or tablet
 [x] Ditch gulp
-[ ] Upgrade to newest Cordova with fast webview
+[x] Upgrade to newest Cordova with fast webview
 [x] Add "rate this app" nag view -- after completing half the puzzles
-[ ] Publish update with new screenshots
+[ ] Publish update
 
 ----------------
 

@@ -18,4 +18,4 @@
 * Upgrade to WKWebView (Cordova 4.0)
 * New descriptive screenshots
 * Add an "About" screen
-* Add a "review nag" screen
+* Add app review prompt
