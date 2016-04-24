@@ -42,6 +42,8 @@
     <allow-intent href="geo:*" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <allow-navigation href="itms:*" />
+    <allow-navigation href="itms-apps:*" />
     <icon height="180" src="resources/ios/Icon-60@3x.png" width="180" />
     <icon height="60" src="resources/ios/Icon-60.png" width="60" />
     <icon height="120" src="resources/ios/Icon-60@2x.png" width="120" />

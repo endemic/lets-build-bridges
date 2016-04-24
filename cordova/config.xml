@@ -34,6 +34,8 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <allow-navigation href="itms:*" />
+        <allow-navigation href="itms-apps:*" />
 
         <!-- iOS 8.0+ -->
         <!-- iPhone 6 Plus  -->
