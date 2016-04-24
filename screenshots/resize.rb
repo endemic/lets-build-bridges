@@ -2,31 +2,27 @@
 
 # Source images are highest resolution for that aspect ratio
 IPAD_SOURCE_DIR = 'ipad_pro'
-IPHONE_SOURCE_DIR = 'six_plus'
+IPHONE_SOURCE_DIR = '5.5'
 
 IPHONES = {
-  'six' => {
+  '4.7' => {
     width: 750,
     height: 1334
   },
-  'five' => {
+  '4' => {
     width: 640,
     height: 1136
   },
-  'four' => {
+  '3.5' => {
     width: 540, # will need to add back in width for these shots
     height: 960
   }
 }
 
 IPADS = {
-  'ipad_retina' => {
+  'ipad' => {
     width: 1536,
     height: 2048
-  },
-  'ipad_classic' => {
-    width: 768,
-    height: 1024
   }
 }
 
