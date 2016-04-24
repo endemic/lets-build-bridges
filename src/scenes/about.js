@@ -19,7 +19,7 @@
         this.add(title);
 
         var backButton = new Arcadia.Button({
-            position: {x: -this.size.width / 2 + 65, y: -this.size.height / 2 + 25},
+            position: {x: -this.size.width / 2 + 35, y: -this.size.height / 2 + 25},
             size: {width: 60, height: 40},
             color: null,
             border: '2px white',

@@ -3,10 +3,12 @@
 (function (root) {
     'use strict';
 
-    var ReviewNagScene = function () {
+    var ReviewNagScene = function (options) {
         Arcadia.Scene.apply(this, arguments);
 
         Arcadia.cycleBackground();
+
+        options = options || {};
 
         // Never show again
         localStorage.setBoolean('nagShown', true);
