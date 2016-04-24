@@ -1,18 +1,5 @@
 # TODO
 
-[x] "About" screen with "rate", "reset data", and "more games" buttons
-[ ] New screenshots with descriptive text
-	* Tap and drag to connect islands together
-	* Connect all the islands to solve the puzzle
-	* 100 unique puzzles to solve
-	* Play on your phone or tablet
-[x] Ditch gulp
-[x] Upgrade to newest Cordova with fast webview
-[x] Add "rate this app" nag view -- after completing half the puzzles
-[ ] Publish update
-
-----------------
-
 [ ] Auto save/restore puzzle progress
 [ ] Add "win" jingle
 [ ] Allow users to share levels?
@@ -21,6 +8,15 @@
 
 ---------------------
 
+[x] "About" screen with "rate", "reset data", and "more games" buttons
+[x] New screenshots with descriptive text
+	* Tap and drag to connect islands together
+	* Connect all the islands to solve the puzzle
+	* 100 unique puzzles to solve
+	* Play on your phone or tablet
+[x] Ditch gulp
+[x] Upgrade to newest Cordova with fast webview
+[x] Add "rate this app" nag view -- after completing half the puzzles
 [x] Create new version in iTunes Connect
 [x] Update icon in Cordova project
 [x] Add back "destroyAll" to Arcadia.Pool - used to remove button event listeners
