@@ -45,15 +45,19 @@
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
         },
-        "cc.fovea.cordova.purchase": {
-            "PACKAGE_NAME": "com.ganbarugames.bridges"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
+        },
+        "cordova-plugin-admobpro": {
+            "PACKAGE_NAME": "com.ganbarugames.bridges"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-extension": {
+            "PACKAGE_NAME": "com.ganbarugames.bridges"
+        }
+    }
 }
