@@ -114,6 +114,15 @@ var GameScene = function (options) {
         };
         this.add(this.backButton);
     }
+
+    // Load AdMob content
+    if (AdMob) {
+        AdMob.prepareInterstitial({adId:admobid.interstitial, autoShow:false}, function success() {
+            self.adLoaded = false;
+        }, function failure() {
+            self.adLoaded = false;
+        });
+    }
 };
 
 GameScene.prototype = new Arcadia.Scene();
@@ -438,7 +447,16 @@ GameScene.prototype.win = function () {
             } else if (Arcadia.ENV.cordova && percentComplete > NAG_FOR_REVIEW_THRESHOLD && !nagShown) {
                 Arcadia.changeScene(ReviewNagScene, {level: incompleteLevel});
             } else {
-                Arcadia.changeScene(GameScene, {level: incompleteLevel});
+
+                window.onAdDismiss = function () {
+                    Arcadia.changeScene(GameScene, {level: incompleteLevel});
+                };
+
+                if (AdMob && self.adLoaded) {
+                    AdMob.showInterstitial();
+                } else {
+                    window.onAdDismiss();
+                }
             }
         }
     });

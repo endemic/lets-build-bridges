@@ -47,6 +47,8 @@
                 // Open app store
                 if (Arcadia.ENV.ios) {
                     window.open('itms-apps://itunes.apple.com/app/id1020197906');
+                } else if (Arcadia.ENV.android) {
+                    window.open('market://details?id=com.ganbarugames.bridges', '_system');
                 }
             }
         });

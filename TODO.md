@@ -1,5 +1,19 @@
 # TODO
 
+## Android version
+
+[ ] Configure AdMob plugin
+[x] Add AdMob plugin code to show between puzzles
+[ ] Extract icon generation script to output web/iOS/Android icons
+[ ] Create splash screen generation script
+[ ] Config Android icons
+[ ] Config Android splash screens
+[ ] Review Nag scene points to right Play Store link
+[ ] About scene points to right Play Store links
+[ ] Double-check all Cordova-specific conditional statements
+
+--------------------
+
 [ ] Auto save/restore puzzle progress
 [ ] Add "win" jingle
 [ ] Allow users to share levels?
