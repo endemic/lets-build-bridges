@@ -9,6 +9,12 @@
     "installed_plugins": {
         "cordova-plugin-admobpro": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ganbarugames.bridges"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ganbarugames.bridges"
         }
     },
     "dependent_plugins": {

@@ -32,7 +32,8 @@ ANDROID_ICON_SIZES = {
   72 => 'hdpi.png',
   96 => 'xhdpi.png',
   144 => 'xxhdpi.png',
-  192 => 'xxxhdpi.png'
+  192 => 'xxxhdpi.png',
+  512 => 'play_store.png'
 }
 
 ANDROID_ICON_SIZES.each do |dimension, filename|

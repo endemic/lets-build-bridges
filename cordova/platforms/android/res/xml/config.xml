@@ -5,8 +5,36 @@
         <param name="android-package" value="com.rjfun.cordova.admob.AdMobPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <allow-intent href="market:*" />
-    <name>Let\'s Build Bridges</name>
+    <allow-navigation href="market:*" />
+    <allow-navigation href="http://play.google.com/*" />
+    <allow-navigation href="http://play.google.com/store/apps/details?id=com.ganbarugames.nonogramjs" />
+    <icon density="ldpi" src="resources/icons/android/ldpi.png" />
+    <icon density="mdpi" src="resources/icons/android/mdpi.png" />
+    <icon density="hdpi" src="resources/icons/android/hdpi.png" />
+    <icon density="xhdpi" src="resources/icons/android/xhdpi.png" />
+    <icon density="xxhdpi" src="resources/icons/android/xxhdpi.png" />
+    <icon density="xxxhdpi" src="resources/icons/android/xxxhdpi.png" />
+    <splash density="land-hdpi" src="resources/splashscreens/android/splash-land-hdpi.png" />
+    <splash density="land-ldpi" src="resources/splashscreens/android/splash-land-ldpi.png" />
+    <splash density="land-mdpi" src="resources/splashscreens/android/splash-land-mdpi.png" />
+    <splash density="land-xhdpi" src="resources/splashscreens/android/splash-land-xhdpi.png" />
+    <splash density="land-xxhdpi" src="resources/splashscreens/android/splash-land-xxhdpi.png" />
+    <splash density="land-xxxhdpi" src="resources/splashscreens/android/splash-land-xxxhdpi.png" />
+    <splash density="port-hdpi" src="resources/splashscreens/android/splash-port-hdpi.png" />
+    <splash density="port-ldpi" src="resources/splashscreens/android/splash-port-ldpi.png" />
+    <splash density="port-mdpi" src="resources/splashscreens/android/splash-port-mdpi.png" />
+    <splash density="port-xhdpi" src="resources/splashscreens/android/splash-port-xhdpi.png" />
+    <splash density="port-xxhdpi" src="resources/splashscreens/android/splash-port-xxhdpi.png" />
+    <splash density="port-xxxhdpi" src="resources/splashscreens/android/splash-port-xxxhdpi.png" />
+    <name>Build Bridges</name>
     <description>
         Japanese logic puzzles.
     </description>
@@ -21,8 +49,13 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="Fullscreen" value="true" />
+    <preference name="SplashScreen" value="screen" />
     <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="SplashScreenDelay" value="2000" />
+    <preference name="SplashScreenDelay" value="3000" />
     <preference name="FadeSplashScreen" value="false" />
+    <preference name="FadeSplashScreenDuration" value="0" />
     <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="SplashShowOnlyFirstTime" value="true" />
 </widget>

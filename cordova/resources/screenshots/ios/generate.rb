@@ -43,3 +43,6 @@ end
 # Perhaps try this for resizing screenshots?
 # convert -define jpeg:size=200x200 hatching_orig.jpg -thumbnail '100x100>' \
 #           -background white -gravity center -extent 100x100 pad_extent.gif
+
+# More info:
+# http://www.imagemagick.org/Usage/thumbnails/#fit_summery
