@@ -80,8 +80,8 @@
 
                     if (Arcadia.ENV.ios) {
                     	window.open('itms-apps://itunes.apple.com/app/id1020197906');
-                    } else if (Arcadia.ENV.android) {
-                        window.open('market://details?id=com.ganbarugames.bridges', '_system');
+                    } else if (Arcadia.ENV.android && cordova.InAppBrowser) {
+                        cordova.InAppBrowser.open('market://details?id=com.ganbarugames.nonogramjs', '_system');
                     }
                 }
             });
@@ -99,9 +99,8 @@
 
                     if (Arcadia.ENV.ios) {
 	                    window.open('itms-apps://itunes.com/apps/ganbarugames');
-	                } else if (Arcadia.ENV.android) {
-                        //https://play.google.com/store/apps/developer?id=Ganbaru+Games
-                        window.open('market://developer?id=Ganbaru+Games', '_system');
+	                } else if (Arcadia.ENV.android && cordova.InAppBrowser) {
+                        cordova.InAppBrowser.open('market://search?q=pub:Ganbaru+Games', '_system');
                     }
                 }
             });
