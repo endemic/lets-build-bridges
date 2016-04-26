@@ -117,7 +117,10 @@ var GameScene = function (options) {
 
     // Load AdMob content
     if (AdMob) {
-        AdMob.prepareInterstitial({adId:admobid.interstitial, autoShow:false}, function success() {
+        AdMob.prepareInterstitial({
+            adId: 'ca-app-pub-8045350589241869/6289115038',
+            autoShow: false
+        }, function success() {
             self.adLoaded = false;
         }, function failure() {
             self.adLoaded = false;
