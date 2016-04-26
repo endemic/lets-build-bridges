@@ -2,15 +2,21 @@
 
 ## Android version
 
-[ ] Configure AdMob plugin
+[x] Configure AdMob plugin
 [x] Add AdMob plugin code to show between puzzles
 [x] Extract icon generation script to output web/iOS/Android icons
 [x] Config Android icons
 [x] Create splash screen generation script
 [x] Config Android splash screens
-[ ] Review Nag scene points to right Play Store link
-[ ] About scene points to right Play Store links
-[ ] Double-check all Cordova-specific conditional statements
+[x] Review Nag scene points to right Play Store link
+[x] About scene points to right Play Store links
+[x] Double-check all Cordova-specific conditional statements
+[ ] Determine Android screenshot sizes
+[ ] Create Android screenshots
+
+[x] Splashscreen not displaying
+[ ] Ads not displaying
+[x] Can't open play store links
 
 --------------------
 
