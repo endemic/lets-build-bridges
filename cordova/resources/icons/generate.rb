@@ -22,6 +22,7 @@ IOS_ICON_SIZES = {
 }
 
 IOS_ICON_SIZES.each do |dimension, filename|
+  puts "Generating ios/#{filename}"
   `convert #{SOURCE_IMAGE} -resize #{dimension}x#{dimension} ios/#{filename}`
 end
 
@@ -31,9 +32,10 @@ ANDROID_ICON_SIZES = {
   72 => 'hdpi.png',
   96 => 'xhdpi.png',
   144 => 'xxhdpi.png',
-  192 => 'xxxhdpi.png',
+  192 => 'xxxhdpi.png'
 }
 
 ANDROID_ICON_SIZES.each do |dimension, filename|
+  puts "Generating android/#{filename}"
   `convert #{SOURCE_IMAGE} -resize #{dimension}x#{dimension} android/#{filename}`
 end

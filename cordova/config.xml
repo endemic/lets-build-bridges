@@ -17,16 +17,14 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
 
-    <!-- Splashscreen plugin -->
     <!-- https://github.com/apache/cordova-plugin-splashscreen -->
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="SplashScreenDelay" value="2000" />
     <preference name="FadeSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false"/>
-
-    <!-- Android only? -->
-    <!-- <preference name="SplashScreen" value="resources/ios/Default@2x~iphone.png" />
-    <preference name="SplashMaintainAspectRatio" value="true" /> -->
+    <!-- Android-specific config -->
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
 
     <platform name="android">
         <allow-intent href="market:*" />
@@ -44,11 +42,15 @@
         <splash src="resources/splashscreens/android/splash-land-ldpi.png" density="land-ldpi"/>
         <splash src="resources/splashscreens/android/splash-land-mdpi.png" density="land-mdpi"/>
         <splash src="resources/splashscreens/android/splash-land-xhdpi.png" density="land-xhdpi"/>
+        <splash src="resources/splashscreens/android/splash-land-xxhdpi.png" density="land-xxhdpi"/>
+        <splash src="resources/splashscreens/android/splash-land-xxxhdpi.png" density="land-xxxhdpi"/>
 
         <splash src="resources/splashscreens/android/splash-port-hdpi.png" density="port-hdpi"/>
         <splash src="resources/splashscreens/android/splash-port-ldpi.png" density="port-ldpi"/>
         <splash src="resources/splashscreens/android/splash-port-mdpi.png" density="port-mdpi"/>
         <splash src="resources/splashscreens/android/splash-port-xhdpi.png" density="port-xhdpi"/>
+        <splash src="resources/splashscreens/android/splash-port-xxhdpi.png" density="port-xxhdpi"/>
+        <splash src="resources/splashscreens/android/splash-port-xxxhdpi.png" density="port-xxxhdpi"/>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
