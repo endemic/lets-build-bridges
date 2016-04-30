@@ -1,0 +1,18 @@
+{
+    "android": {
+        "debug": {
+            "keystore": "../../../../../../ganbarugames/ganbarugames.keystore",
+            "storePassword": "",
+            "alias": "ganbarugames",
+            "password" : "password",
+            "keystoreType": ""
+        },
+        "release": {
+            "keystore": "../../../../../../ganbarugames/ganbarugames.keystore",
+            "storePassword": "",
+            "alias": "ganbarugames",
+            "password" : "",
+            "keystoreType": ""
+        }
+    }
+}
