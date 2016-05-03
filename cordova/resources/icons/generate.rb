@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-SOURCE_IMAGE = 'icon_500x500.png'
+SOURCE_IMAGE = 'icon_1024x1024.png'
 
 IOS_ICON_SIZES = {
   40 => 'Icon-40.png',
@@ -18,7 +18,8 @@ IOS_ICON_SIZES = {
   29 => 'Icon-Small.png',
   58 => 'Icon-Small@2x.png',
   87 => 'Icon-Small@3x.png',
-  512 => 'iTunesArtwork.png'
+  512 => 'iTunesArtwork.png',
+  1024 => 'iTunesArtwork@2x.png'
 }
 
 IOS_ICON_SIZES.each do |dimension, filename|

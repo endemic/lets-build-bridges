@@ -17,14 +17,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-admobpro/www/AdMob.js",
-        "id": "cordova-plugin-admobpro.AdMob",
-        "pluginId": "cordova-plugin-admobpro",
-        "clobbers": [
-            "window.AdMob"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
         "id": "cordova-plugin-inappbrowser.inappbrowser",
         "pluginId": "cordova-plugin-inappbrowser",
@@ -40,6 +32,14 @@ module.exports = [
         "clobbers": [
             "navigator.splashscreen"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-admobpro/www/AdMob.js",
+        "id": "cordova-plugin-admobpro.AdMob",
+        "pluginId": "cordova-plugin-admobpro",
+        "clobbers": [
+            "window.AdMob"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -47,10 +47,10 @@ module.exports.metadata =
 {
     "cordova-plugin-console": "1.0.3",
     "cordova-plugin-whitelist": "1.2.2",
-    "cordova-plugin-extension": "1.5.1",
-    "cordova-plugin-admobpro": "2.16.1",
     "cordova-plugin-inappbrowser": "1.4.0",
-    "cordova-plugin-splashscreen": "2.0.0"
+    "cordova-plugin-splashscreen": "2.0.0",
+    "cordova-plugin-extension": "1.5.1",
+    "cordova-plugin-admobpro": "2.16.1"
 }
 // BOTTOM OF METADATA
 });

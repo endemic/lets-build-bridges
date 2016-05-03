@@ -81,7 +81,7 @@
                     if (Arcadia.ENV.ios) {
                     	window.open('itms-apps://itunes.apple.com/app/id1020197906');
                     } else if (Arcadia.ENV.android && cordova.InAppBrowser) {
-                        cordova.InAppBrowser.open('market://details?id=com.ganbarugames.nonogramjs', '_system');
+                        cordova.InAppBrowser.open('market://details?id=com.ganbarugames.bridges', '_system');
                     }
                 }
             });

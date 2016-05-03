@@ -34,7 +34,6 @@
         <allow-intent href="market:*" />
         <allow-navigation href="market:*" />
         <allow-navigation href="http://play.google.com/*" />
-        <allow-navigation href="http://play.google.com/store/apps/details?id=com.ganbarugames.nonogramjs" />
 
         <icon src="resources/icons/android/ldpi.png" density="ldpi" />
         <icon src="resources/icons/android/mdpi.png" density="mdpi" />

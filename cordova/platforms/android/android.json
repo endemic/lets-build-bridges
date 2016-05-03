@@ -29,15 +29,15 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"AdMob\"><param name=\"android-package\" value=\"com.rjfun.cordova.admob.AdMobPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AdMob\"><param name=\"android-package\" value=\"com.rjfun.cordova.admob.AdMobPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -46,28 +46,21 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-extension": {
-            "PACKAGE_NAME": "com.ganbarugames.bridges"
-        },
-        "cordova-plugin-admobpro": {
-            "PACKAGE_NAME": "com.ganbarugames.bridges"
-        },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
         },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ganbarugames.bridges"
+        },
+        "cordova-plugin-extension": {
+            "PACKAGE_NAME": "com.ganbarugames.bridges"
+        },
+        "cordova-plugin-admobpro": {
+            "PACKAGE_NAME": "com.ganbarugames.bridges"
         }
     },
     "dependent_plugins": {},
     "modules": [
-        {
-            "file": "plugins/cordova-plugin-admobpro/www/AdMob.js",
-            "id": "cordova-plugin-admobpro.AdMob",
-            "clobbers": [
-                "window.AdMob"
-            ]
-        },
         {
             "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
             "id": "cordova-plugin-inappbrowser.inappbrowser",
@@ -82,12 +75,19 @@
             "clobbers": [
                 "navigator.splashscreen"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-admobpro/www/AdMob.js",
+            "id": "cordova-plugin-admobpro.AdMob",
+            "clobbers": [
+                "window.AdMob"
+            ]
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-extension": "1.5.1",
-        "cordova-plugin-admobpro": "2.16.1",
         "cordova-plugin-inappbrowser": "1.4.0",
-        "cordova-plugin-splashscreen": "2.0.0"
+        "cordova-plugin-splashscreen": "2.0.0",
+        "cordova-plugin-extension": "1.5.1",
+        "cordova-plugin-admobpro": "2.16.1"
     }
 }
