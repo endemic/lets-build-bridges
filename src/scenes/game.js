@@ -117,13 +117,22 @@ var GameScene = function (options) {
 
     // Load AdMob content
     if (AdMob) {
+        window.onAdFailLoad = function () {
+            self.adLoaded = false;
+            // console.log('*** AdMob failed to load ***');
+        };
+        document.removeEventListener('onAdFailLoad', window.onAdFailLoad);
+        document.addEventListener('onAdFailLoad', window.onAdFailLoad);
+
         AdMob.prepareInterstitial({
             adId: 'ca-app-pub-8045350589241869/6289115038',
             autoShow: false
         }, function success() {
             self.adLoaded = true;
+            // console.log('*** AdMob content loaded ***');
         }, function failure() {
             self.adLoaded = false;
+            // console.log('*** AdMob failed to load ***');
         });
     }
 };
@@ -430,7 +439,7 @@ GameScene.prototype.win = function () {
     progressAscii += ']';
 
     var nextButton = new Arcadia.Button({
-        position: { x: 0, y: -40 },
+        position: {x: 0, y: -40},
         padding: this.buttonPadding,
         color: null,
         border: '2px #fff',
@@ -451,13 +460,15 @@ GameScene.prototype.win = function () {
                 Arcadia.changeScene(ReviewNagScene, {level: incompleteLevel});
             } else {
                 window.onAdDismiss = function () {
+                    // console.log('*** onAdDismiss() ***');
                     Arcadia.changeScene(GameScene, {level: incompleteLevel});
                 };
 
-                if (self.adLoaded) {
+                if (AdMob && self.adLoaded && !self.isTitle) {
                     // Re-attach dismissal event listener
                     document.removeEventListener('onAdDismiss', window.onAdDismiss);
                     document.addEventListener('onAdDismiss', window.onAdDismiss);
+                    // console.log('*** AdMob.showInterstitial() ***');
                     AdMob.showInterstitial();
                 } else {
                     window.onAdDismiss();
