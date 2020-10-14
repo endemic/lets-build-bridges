@@ -19,3 +19,7 @@
 * New descriptive screenshots
 * Add an "About" screen
 * Add app review prompt
+
+1.2.1
+=====
+* Fix bug where drawn edge has height of "0"
