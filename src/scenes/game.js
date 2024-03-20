@@ -176,7 +176,7 @@ GameScene.prototype.onPointStart = function (points) {
             // If so, start drawing cursor/line
             this.activate(this.cursor);
             this.activate(this.activeEdge);
-            this.activeEdge.size = { width: 2, height: distance };
+            this.activeEdge.size = { width: 2, height: Math.ceil(distance) };  // height must be >= 1
             this.activeEdge.rotation = Math.atan2(this.cursor.position.y - this.startVertex.position.y, this.cursor.position.x - this.startVertex.position.x) + Math.PI / 2;
             this.activeEdge.position = {
                 // halfway between cursor and vertex
@@ -203,7 +203,7 @@ GameScene.prototype.onPointMove = function (points) {
     // "interactive" drawing line
     if (this.startVertex) {
         var distance = Math.sqrt(Math.pow(this.cursor.position.x - this.startVertex.position.x, 2) + Math.pow(this.cursor.position.y - this.startVertex.position.y, 2));
-        this.activeEdge.size = { width: 2, height: distance };
+        this.activeEdge.size = { width: 2, height: Math.ceil(distance) };  // height must be >= 1
         this.activeEdge.rotation = Math.atan2(this.cursor.position.y - this.startVertex.position.y, this.cursor.position.x - this.startVertex.position.x) + Math.PI / 2;
         this.activeEdge.position = {
             x: (this.cursor.position.x + this.startVertex.position.x) / 2,
